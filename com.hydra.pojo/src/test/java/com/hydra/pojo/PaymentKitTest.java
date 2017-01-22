@@ -1,4 +1,4 @@
-package com.hydra.mvnTest.helloworld;
+package com.hydra.pojo;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;

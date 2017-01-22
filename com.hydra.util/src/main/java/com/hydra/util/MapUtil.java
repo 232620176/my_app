@@ -2,24 +2,24 @@ package com.hydra.util;
 
 import java.util.Map;
 
-import com.lakala.amber.util.Base64;
 /**
- * @description ÈÕÆÚ¹«¹²´¦ÀíÀà
- * @author wangshuang@lakala.com
- * @date 2013Äê12ÔÂ30ÈÕ
+ * @description æ—¥æœŸå…¬å…±å¤„ç†ç±»
+ * @company LAKALA MTS
+ * @author wushaolin@lakala.com
+ * @date 2013å¹´12æœˆ30æ—¥
  */
 public final class MapUtil {
 	private MapUtil(){}
 	
 	/**
-	* ½«fromMap¼üfromName¶ÔÓ¦µÄÖµÒÔtoNameÎª¼üÖµ·Åµ½toMapÖĞ£¬ÖµÎªnull²»×ö´¦Àí
+	* å°†fromMapé”®fromNameå¯¹åº”çš„å€¼ä»¥toNameä¸ºé”®å€¼æ”¾åˆ°toMapä¸­ï¼Œå€¼ä¸ºnullä¸åšå¤„ç†
 	* @param fromName
 	* @param fromMap
 	* @param toName
 	* @param toMap
 	* @returnType void
 	* @author: Hydra wangshuang@lakala.com
-	* @date: 2017Äê1ÔÂ10ÈÕ ÉÏÎç9:42:00
+	* @date: 2017å¹´1æœˆ10æ—¥ ä¸Šåˆ9:42:00
 	 */
 	public static<K, V> void processParam(K fromName, Map<K, V> fromMap, K toName, Map<K, V> toMap){
 		V tmp = fromMap.get(fromName);
@@ -29,27 +29,27 @@ public final class MapUtil {
 	}
 	
 	/**
-	* ½«fromMap¼üfromName¶ÔÓ¦µÄÖµ·Åµ½toMapÖĞ£¬ÖµÎªnull²»×ö´¦Àí
+	* å°†fromMapé”®fromNameå¯¹åº”çš„å€¼æ”¾åˆ°toMapä¸­ï¼Œå€¼ä¸ºnullä¸åšå¤„ç†
 	* @param name
 	* @param fromMap
 	* @param toMap
 	* @returnType void
 	* @author: Hydra wangshuang@lakala.com
-	* @date: 2017Äê1ÔÂ10ÈÕ ÉÏÎç9:43:34
+	* @date: 2017å¹´1æœˆ10æ—¥ ä¸Šåˆ9:43:34
 	 */
 	public static<K, V> void processParam(K name, Map<K, V> fromMap, Map<K, V> toMap){
 		processParam(name, fromMap, name, toMap);
 	}
 	
 	/**
-	 * ½«fromMap¼üfromName¶ÔÓ¦µÄÖµÒÔtoNameÎª¼ü£¬²¢¶ÔÖµ×öBase64´¦Àíºó·Åµ½toMapÖĞ£¬ÖµÎªnull²»×ö´¦Àí
+	 * å°†fromMapé”®fromNameå¯¹åº”çš„å€¼ä»¥toNameä¸ºé”®ï¼Œå¹¶å¯¹å€¼åšBase64å¤„ç†åæ”¾åˆ°toMapä¸­ï¼Œå€¼ä¸ºnullä¸åšå¤„ç†
 	 * @param fromName
 	 * @param fromMap
 	 * @param toName
 	 * @param toMap
 	 * @returnType void
 	 * @author: Hydra wangshuang@lakala.com
-	 * @date: 2017Äê1ÔÂ10ÈÕ ÉÏÎç9:42:00
+	 * @date: 2017å¹´1æœˆ10æ—¥ ä¸Šåˆ9:42:00
 	 */
 	public static<K, V> void processParamWithBase64(K fromName, Map<K, V> fromMap, K toName, Map<K, Object> toMap){
 		V tmp = fromMap.get(fromName);
@@ -60,20 +60,20 @@ public final class MapUtil {
 	}
 	
 	/**
-	 * ½«fromMap¼üfromName¶ÔÓ¦µÄÖµ×öBase64´¦Àíºó·Åµ½toMapÖĞ£¬ÖµÎªnull²»×ö´¦Àí
+	 * å°†fromMapé”®fromNameå¯¹åº”çš„å€¼åšBase64å¤„ç†åæ”¾åˆ°toMapä¸­ï¼Œå€¼ä¸ºnullä¸åšå¤„ç†
 	 * @param name
 	 * @param fromMap
 	 * @param toMap
 	 * @returnType void
 	 * @author: Hydra wangshuang@lakala.com
-	 * @date: 2017Äê1ÔÂ10ÈÕ ÉÏÎç9:43:34
+	 * @date: 2017å¹´1æœˆ10æ—¥ ä¸Šåˆ9:43:34
 	 */
 	public static<K, V> void processParamWithBase64(K name, Map<K, V> fromMap, Map<K, Object> toMap){
 		processParamWithBase64(name, fromMap, name, toMap);
 	}
 	
 	/**
-	* ½«fromMap¼üfromName¶ÔÓ¦µÄÖµÒÔtoNameÎª¼üÖµ·Åµ½toMapÖĞ£¬ÖµÎªnullÊ±·ÅÖÃÄ¬ÈÏÖµdef
+	* å°†fromMapé”®fromNameå¯¹åº”çš„å€¼ä»¥toNameä¸ºé”®å€¼æ”¾åˆ°toMapä¸­ï¼Œå€¼ä¸ºnullæ—¶æ”¾ç½®é»˜è®¤å€¼def
 	* @param fromName
 	* @param fromMap
 	* @param toName
@@ -81,7 +81,7 @@ public final class MapUtil {
 	* @param def
 	* @returnType void
 	* @author: Hydra wangshuang@lakala.com
-	* @date: 2017Äê1ÔÂ10ÈÕ ÉÏÎç9:44:13
+	* @date: 2017å¹´1æœˆ10æ—¥ ä¸Šåˆ9:44:13
 	 */
 	public static<K, V> void processParamWithDefault(K fromName, Map<K, V> fromMap, K toName, Map<K, V> toMap, V def){
 		V tmp = fromMap.get(fromName);
@@ -93,27 +93,27 @@ public final class MapUtil {
 	}
 	
 	/**
-	* ½«fromMap¼üfromName¶ÔÓ¦µÄÖµÒÔtoNameÎª¼üÖµ·Åµ½toMapÖĞ£¬ÖµÎªnullÊ±·ÅÖÃÄ¬ÈÏÖµdef
+	* å°†fromMapé”®fromNameå¯¹åº”çš„å€¼ä»¥toNameä¸ºé”®å€¼æ”¾åˆ°toMapä¸­ï¼Œå€¼ä¸ºnullæ—¶æ”¾ç½®é»˜è®¤å€¼def
 	* @param name
 	* @param fromMap
 	* @param toMap
 	* @param def
 	* @returnType void
 	* @author: Hydra wangshuang@lakala.com
-	* @date: 2017Äê1ÔÂ10ÈÕ ÉÏÎç9:44:41
+	* @date: 2017å¹´1æœˆ10æ—¥ ä¸Šåˆ9:44:41
 	 */
 	public static<K, V> void processParamWithDefault(K name, Map<K, V> fromMap, Map<K, V> toMap, V def){
 		processParamWithDefault(name, fromMap, name, toMap, def);
 	}
 	
 	/**
-	* sourceMapµÄ¼ükeyNameÎŞ¶ÔÓ¦ÖµÊ±£¬ÉèÖÃÄ¬ÈÏÖµdef
+	* sourceMapçš„é”®keyNameæ— å¯¹åº”å€¼æ—¶ï¼Œè®¾ç½®é»˜è®¤å€¼def
 	* @param keyName
 	* @param sourceMap
 	* @param def
 	* @returnType void
 	* @author: Hydra wangshuang@lakala.com
-	* @date: 2017Äê1ÔÂ10ÈÕ ÉÏÎç9:47:08
+	* @date: 2017å¹´1æœˆ10æ—¥ ä¸Šåˆ9:47:08
 	 */
 	public static<K, V> void setDefaultParam(K keyName, Map<K, V> sourceMap, V def){
 		V tmp = sourceMap.get(keyName);
