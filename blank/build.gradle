@@ -1,0 +1,71 @@
+ext {
+	log4jVersion = '1.2.17'
+	slf4jVersion = '1.7.25'
+}
+
+subprojects {
+	group = 'com.hydra'
+	apply plugin: 'java'
+	apply plugin: 'maven'
+	apply plugin: 'idea'
+	apply plugin: 'eclipse'
+	
+	version='1.0'
+	[compileJava, javadoc, compileTestJava]*.options*.encoding = 'UTF-8'
+	
+	compileJava.options*.compilerArgs = [
+		"-Xlint:unchecked"
+	]
+	
+	compileTestJava.options*.compilerArgs = [
+		"-Xlint:unchecked"
+	]
+	
+	compileJava {
+		sourceCompatibility = 1.8
+		targetCompatibility = 1.8
+	}
+	
+	compileTestJava {
+		sourceCompatibility = 1.8
+		targetCompatibility = 1.8
+	}
+	
+	configurations {
+		all*.exclude module: 'slf4j-jcl'
+		all*.exclude group: 'commons-logging', module: 'commons-logging'
+	}
+	
+	eclipse {
+		project {
+			natures 'org.springsource.ide.eclipse.gradle.core.nature'
+		}
+		classpath {
+			containers 'org.springsource.ide.eclipse.gradle.classpathcontainer'
+		}
+	}
+	
+	repositories {
+		mavenLocal()
+		maven {
+			name "maven central"
+			url "http://maven.aliyun.com/nexus/content/groups/public/"
+		}
+	}
+	
+	task sourcesJar(type: Jar, dependsOn: classes) {
+		classifier = 'sources'
+		from sourceSets.main.allSource
+	}
+	
+	artifacts {
+		archives sourcesJar
+	}
+	
+	uploadArchives {
+		repositories.mavenDeployer {
+			repository(url: repositories.mavenLocal().url){
+			}
+		}
+	}
+}
