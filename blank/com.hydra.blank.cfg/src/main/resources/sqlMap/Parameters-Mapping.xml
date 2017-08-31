@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+	PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="param">
+	<resultMap type="java.util.HashMap" id="parameterRes">
+		<result column="PNAME" property="Name"/>
+		<result column="PVALUE" property="Value"/>
+		<result column="UPDATETIME" property="UpdateTime"/>
+	</resultMap>
+	
+	<select id="qryParameters" resultMap="parameterRes">
+		select PNAME, PVALUE, UPDATETIME
+		from PARAMETERS
+	</select>
+	
+	<select id="qryParameterByKey" resultMap="parameterRes">
+		select PNAME, PVALUE, UPDATETIME
+		from PARAMETERS p
+		where p.PNAME = #{key}
+	</select>
+	
+	<insert id="addNewParameter">
+		insert into PARAMETERS(pname, pvalue)
+		values(#{key}, #{value})
+	</insert>
+	
+	<update id="updateParameterByKey">
+		update PARAMETERS p
+		set p.PVALUE=#{value}, p.UPDATETIME=sysdate
+		where p.PNAME = #{key}
+	</update>
+</mapper>

@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						http://www.lakala.com/schema/amber-core http://www.lakala.com/schema/amber-core-1.0.xsd">
+	
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" init-method="createPool">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url" value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
+		<property name="initialSize" value="${db.initialSize}"/>
+		<property name="maxActive" value="${db.maxActive}" />
+		<property name="maxIdle" value="${db.maxIdle}" />
+		<property name="minIdle" value="${db.minIdle}" />
+		<property name="maxWait" value="${db.maxWait}" />
+<!-- 		<property name="maxAge" value="300000" /> -->
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="true" />
+		<property name="validationQuery" value="select 1 from dual" />
+		<property name="validationInterval" value="30000" />
+		<property name="logAbandoned" value="true" /><!-- 打印回收Connection的错误信息 -->
+		<property name="removeAbandoned" value="true" /><!-- 回收无效的Connection -->
+<!-- 		<property name="removeAbandonedTimeout" value="60" /> -->
+		<property name="fairQueue" value="true" />
+		<property name="jmxEnabled" value="true" />
+<!-- 		<property name="defaultCatalog" value="" /> -->
+		<property name="name" value="dataSource" />
+<!-- 		<property name="jdbcInterceptors" value="com.lakala.mc.jdbc.SqlReport(threshold=50,batchThreshold=100,report=true)" /> -->
+	</bean>
+	
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="txTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+		<property name="transactionManager" ref="txManager" />
+	</bean>
+</beans>
