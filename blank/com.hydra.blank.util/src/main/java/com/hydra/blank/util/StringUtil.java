@@ -26,6 +26,16 @@ public class StringUtil {
 	
 	/**
 	 * <p>Title: isEmpty</p>
+	 * <p>Description: 判断一个对象是否为空</p>
+	 * @param str 目标对象
+	 * @return boolean
+	 */
+	public static boolean isEmpty(Object str) {
+		return str == null;
+	}
+	
+	/**
+	 * <p>Title: isEmpty</p>
 	 * <p>Description: 判断一个字符串是否为空</p>
 	 * @param str 目标字符串
 	 * @return boolean

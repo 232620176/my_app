@@ -1,5 +1,6 @@
 ext {
 	commonsVersion = '1.2'
+	jacksonVersion = '2.9.0'
 	log4jVersion = '1.2.17'
 	logbackVersion = '1.2.3'
 	slf4jVersion = '1.7.25'

@@ -9,6 +9,14 @@ public class Dict {
 	
 	public static final String ALL_CHAR = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	
+	public static final String _PROCESSID = "_ProcessId";// 服务交易码
+	
+	public static final String _RETURNCODE = "_ReturnCode";// 交易状态码
+	
+	public static final String _RETURNMSG = "_ReturnMsg";// 交易信息
+	
+	public static final String _SUBCHANNELID = "_SubChannelId";// 子渠道代码
+	
 	public static final String BROKEN_BAR = "\\|";
 	
 	public static final String MASK_FILL = "*";
