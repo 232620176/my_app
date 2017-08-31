@@ -16,6 +16,7 @@ Thumbs.db
 # Build output directies
 build/
 target/
+log/
 
 # Package Files
 *.jar
