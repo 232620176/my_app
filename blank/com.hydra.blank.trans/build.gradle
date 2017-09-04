@@ -1,5 +1,6 @@
 dependencies {
 	compile project(":com.hydra.blank.cfg")
-	compile project(":com.hydra.blank.util")
 	compile project(":com.hydra.blank.db")
+	compile project(":com.hydra.blank.transport")
+	compile project(":com.hydra.blank.util")
 }
