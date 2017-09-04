@@ -42,7 +42,7 @@ public class HttpTransport extends AbstractHttpTransport {
 		}else{
 			params.put("chncode", systemCode);
 		}
-		logger.info(MapUtil.get(params, Dict._PROCESSID) + " params: " + params);
+		logger.debug(MapUtil.get(params, Dict._PROCESSID) + " params: " + params);
 		
 		//处理参数
 		HttpMethod method = processor.process(url, params);
@@ -55,7 +55,7 @@ public class HttpTransport extends AbstractHttpTransport {
 			} else {
 				String str = method.getResponseBodyAsString();
 				str = str.replaceAll("\r\n", "").trim();
-				logger.info(str);
+				logger.debug(str);
 				return str;
 			}
 		} catch (Exception e) {
@@ -63,6 +63,17 @@ public class HttpTransport extends AbstractHttpTransport {
 		} finally {
 			method.releaseConnection();
 		}
+	}
+	
+	public static void main(String[] args) throws Exception{
+		HttpTransport httpClient = new HttpTransport();
+		httpClient.setChannel(new Properties());
+		Map<String, Object> param = MapUtil.getMap();
+		param.put(Dict._SUBCHANNELID, "100017");
+		String url = "http://10.5.31.13:9060/adaptor/convert.do?_t=json&_TransCode=getWxAccessToken&wxInx=2";
+		String res = httpClient.doSubmit(url, param, new HttpTransport.SimpleGetMehtodProcessor());
+		param = HttpResultProcessor.processResult(res);
+		System.out.println(param);
 	}
 	
 	/**

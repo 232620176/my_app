@@ -45,70 +45,8 @@ public class HttpResultProcessor {
 		}
 	}
 	
-	/**
-	 * <p>Title: processLUCResult</p>
-	 * <p>Description: 处理集团用户中心返回结果</p>
-	 * @param result
-	 * @return
-	 * @throws CoreException Map<String,Object>
-	 */
-	public static Map<String, Object> processLUCResult(String result) throws Exception{
-		Map<String, Object> map = str2Map(result);
-		if("00".equals(map.get("returnCode"))){
-			map.remove(Dict._RETURNCODE);
-			map.remove(Dict._RETURNMSG);
-			return map;
-		}else{
-			if(StringUtil.isEmpty(map.get(Dict._RETURNCODE))){
-				throw new Exception((String)map.get("returnMsg"));
-			}else{
-				throw new Exception((String)map.get(Dict._RETURNMSG));
-			}
-		}
-	}
-	/**
-	 * <p>Title: processLFEResult</p>
-	 * <p>Description: 处理金交所返回结果</p>
-	 * @param result
-	 * @return
-	 * @throws CoreException Map<String,Object>
-	 */
 	@SuppressWarnings("unchecked")
-	public static Map<String, Object> processLFEResult(String result) throws Exception{
-		Map<String, Object> map = str2Map(result);
-		Map<String, Object> dataMap = null;
-		if("00".equals(map.get(Dict._RETURNCODE))){
-			map.remove(Dict._RETURNCODE);
-			map.remove(Dict._RETURNMSG);
-			dataMap = (Map<String, Object>) map.get("data");
-			return dataMap;
-		}else{
-			throw new Exception((String)map.get(Dict._RETURNMSG));
-		}
-	}
-	/**
-	 * <p>Title: processLFPResult</p>
-	 * <p>Description: 处理理财平台返回结果</p>
-	 * @param result
-	 * @return
-	 * @throws CoreException Map<String,Object>
-	 */
-	@SuppressWarnings("unchecked")
-	public static Map<String, Object> processLFPResult(String result) throws Exception{
-		Map<String, Object> map = str2Map(result);
-		Map<String, Object> dataMap = null;
-		if("00".equals(map.get(Dict._RETURNCODE))){
-			map.remove(Dict._RETURNCODE);
-			map.remove(Dict._RETURNMSG);
-			dataMap = (Map<String, Object>) map.get("data");
-			return dataMap;
-		}else{
-			throw new Exception((String)map.get(Dict._RETURNMSG));
-		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	public static Map<String, Object> str2Map(String str) throws Exception{
+	private static Map<String, Object> str2Map(String str) throws Exception{
 		Map<String, Object> map;
 		try {
 			map = JsonUtil.objectFromJson(str, Map.class);
