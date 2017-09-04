@@ -1,5 +1,6 @@
 dependencies {
 	compile "org.apache.ibatis:ibatis-sqlmap:$sqlMapVersion"
+	compile "org.mybatis:mybatis:$mybatisVersion"
 	compile "org.springframework:spring-orm:$springVersion"
 	compile project(":com.hydra.blank.cfg")
 	compile project(":com.hydra.blank.util")

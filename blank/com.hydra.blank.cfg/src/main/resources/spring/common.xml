@@ -8,11 +8,11 @@
 	<context:annotation-config />
 	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />
 	
-	<bean id="sqlMap" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+	<bean id="sqlMap" class="com.hydra.blank.db.sqlmap.impl.SqlMapFactoryBean">
 		<qualifier value="main" />
 		<property name="dataSource" ref="dataSource" />
 		<!-- 此处应注入ibatis配置文件，而非sqlMap文件，否则会出现“there is no statement.....异常” -->
-		<property name="configLocations" value="classpath:sqlMap/Configuration.xml" />
+		<property name="configLocation" value="classpath:sqlMap/Configuration.xml" />
 		<property name="mappingLocations" value="sqlMap/*-Mapping.xml" />
 	</bean>
 </beans>
