@@ -1,4 +1,5 @@
 dependencies {
+	compile "com.google.guava:guava:$guavaVersion"
 	compile "org.apache.ibatis:ibatis-sqlmap:$sqlMapVersion"
 	compile "org.mybatis:mybatis:$mybatisVersion"
 	compile "org.springframework:spring-orm:$springVersion"

@@ -32,3 +32,42 @@
 		where p.PNAME = #{key}
 	</update>
 </mapper>
+
+<!-- 
+## Create table
+create table PARAMETERS
+(
+	pname		VARCHAR2(60) not null,
+	pvalue		VARCHAR2(2048),
+	updatetime	TIMESTAMP(6) default sysdate
+)
+tablespace TS_DATA
+	pctfree 10
+	initrans 1
+	maxtrans 255
+	storage
+	(
+		initial 64K
+		next 1M
+		minextents 1
+		maxextents unlimited
+	);
+## Create/Recreate primary, unique and foreign key constraints 
+alter table PARAMETERS
+	add primary key (PNAME)
+	using index 
+	tablespace TS_DATA
+	pctfree 10
+	initrans 2
+	maxtrans 255
+	storage
+	(
+		initial 64K
+		next 1M
+		minextents 1
+		maxextents unlimited
+	);
+## Grant/Revoke object privileges 
+grant select, insert, update, delete, references, alter, index on PARAMETERS to LNMFS;
+
+ -->
