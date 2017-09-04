@@ -20,6 +20,7 @@ public class TestDB {
 		Map<String, Object> param = MapUtil.getMap();
 		List<Map<String, Object>> res = sqlMap.queryForList("param.qryParameters", param);
 		logger.info("{}", res);
+		((ClassPathXmlApplicationContext)context).close();
 	}
 	
 	private static Logger logger = LoggerFactory.getLogger(TestDB.class);

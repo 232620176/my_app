@@ -14,8 +14,11 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.hydra.blank.common.Dict;
+import com.hydra.blank.util.CommonUtil;
 import com.hydra.blank.util.JsonUtil;
 import com.hydra.blank.util.MapUtil;
 import com.hydra.blank.util.StringUtil;
@@ -66,14 +69,16 @@ public class HttpTransport extends AbstractHttpTransport {
 	}
 	
 	public static void main(String[] args) throws Exception{
-		HttpTransport httpClient = new HttpTransport();
-		httpClient.setChannel(new Properties());
+		ApplicationContext context=new ClassPathXmlApplicationContext(new String[]{"classpath*:spring/transport/transport.xml"});
+		HttpTransport httpClient = CommonUtil.transfer(context.getBean("httpClient"));
 		Map<String, Object> param = MapUtil.getMap();
 		param.put(Dict._SUBCHANNELID, "100017");
+		param.put("wxInx", 3);
 		String url = "http://10.5.31.13:9060/adaptor/convert.do?_t=json&_TransCode=getWxAccessToken&wxInx=2";
 		String res = httpClient.doSubmit(url, param, new HttpTransport.SimpleGetMehtodProcessor());
 		param = HttpResultProcessor.processResult(res);
 		System.out.println(param);
+		((ClassPathXmlApplicationContext)context).close();
 	}
 	
 	/**
