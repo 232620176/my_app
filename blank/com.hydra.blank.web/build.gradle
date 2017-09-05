@@ -1,0 +1,6 @@
+dependencies {
+	compile project(":com.hydra.core.cfg")
+	compile project(":com.hydra.core.db")
+	compile project(":com.hydra.core.transport")
+	compile project(":com.hydra.core.util")
+}
