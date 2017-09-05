@@ -43,5 +43,5 @@ serviceability/
 /RemoteSystemsTempFiles
 /customer Server
 /Servers
-Test*
+Test*.java
 
