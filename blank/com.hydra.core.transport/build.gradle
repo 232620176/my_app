@@ -1,5 +1,5 @@
 dependencies {
 	compile "org.apache.commons:com.springsource.org.apache.commons.httpclient:3.1.0"
-	compile project(":com.hydra.blank.cfg")
-	compile project(":com.hydra.blank.util")
+	compile project(":com.hydra.core.cfg")
+	compile project(":com.hydra.core.util")
 }

@@ -1,6 +1,6 @@
-include 'com.hydra.blank.cfg',\
-'com.hydra.blank.db',\
-'com.hydra.blank.trans',\
-'com.hydra.blank.transport',\
-'com.hydra.blank.util'
-
+include 'com.hydra.blank.trans',\
+'com.hydra.blank.web',\
+'com.hydra.core.cfg',\
+'com.hydra.core.db',\
+'com.hydra.core.transport',\
+'com.hydra.core.util'
