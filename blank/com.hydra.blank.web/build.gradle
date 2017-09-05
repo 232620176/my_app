@@ -1,6 +1,26 @@
+apply plugin: 'war'
+apply plugin: 'jetty'
+
 dependencies {
+	compile "org.springframework:spring-webmvc:$springVersion"
+	
 	compile project(":com.hydra.core.cfg")
 	compile project(":com.hydra.core.db")
 	compile project(":com.hydra.core.transport")
 	compile project(":com.hydra.core.util")
+	
+	providedCompile "javax.servlet:javax.servlet-api:$servletVersion"
+	runtime 'javax.servlet:jstl:1.1.2'
+}
+
+jettyRun{
+	webAppSourceDirectory file("$projectDir/src/main/webapp")
+	httpPort 8080
+	contextPath 'blank'
+	scanIntervalSeconds 0
+	reload "automatic"
+}
+
+war {
+	archiveName='blank.war'
 }

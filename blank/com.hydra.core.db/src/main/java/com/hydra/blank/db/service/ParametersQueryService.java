@@ -3,7 +3,6 @@ package com.hydra.blank.db.service;
 import java.util.List;
 import java.util.Map;
 
-import oracle.core.lmx.CoreException;
 /**
 * 数据缓存查询
 * <p>
@@ -30,7 +29,6 @@ public interface ParametersQueryService {
 	* @param prefix
 	* @param suffix
 	* @return
-	* @throws CoreException
 	* @returnType List<String>
 	* @author: Hydra wangshuang@lakala.com
 	* @date: 2014年11月18日 上午10:42:41
