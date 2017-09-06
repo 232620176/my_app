@@ -9,7 +9,7 @@ public class CommonUtil {
 	 * @return T 将目标对象强转为声明类型
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T transfer(Object target){
+	public static <T> T transform(Object target){
 		return (T)target;
 	}
 	

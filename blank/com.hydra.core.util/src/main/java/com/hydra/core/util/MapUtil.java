@@ -7,7 +7,7 @@ public class MapUtil {
 	private MapUtil(){throw new UnsupportedOperationException();}
 	
 	public static <T, K, V> T get(Map<K, V> map, K key){
-		return CommonUtil.transfer(map.get(key));
+		return CommonUtil.transform(map.get(key));
 	}
 	
 	public static <K, V> Map<K, V> getMap(){
