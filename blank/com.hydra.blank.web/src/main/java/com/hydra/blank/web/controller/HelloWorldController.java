@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-import com.hydra.blank.db.service.ParametersQueryService;
-import com.hydra.blank.util.StringUtil;
+import com.hydra.core.db.service.ParametersQueryService;
+import com.hydra.core.util.StringUtil;
 
 public class HelloWorldController implements Controller{
 	@Override
