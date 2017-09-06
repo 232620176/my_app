@@ -3,9 +3,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
 	<!-- 系统参数服务 -->
-	<bean id="_ParametersService" class="com.hydra.blank.db.service.impl.ParametersServiceImpl" />
+	<bean id="_ParametersService" class="com.hydra.core.db.service.impl.ParametersServiceImpl" />
 	<!-- 系统参数查询服务 -->
-	<bean id="parametersQueryService" class="com.hydra.blank.db.service.impl.ParametersQueryServiceImpl" />
+	<bean id="parametersQueryService" class="com.hydra.core.db.service.impl.ParametersQueryServiceImpl" />
 	<!-- 系统参数设置服务 -->
-	<bean id="parametersOperateService" class="com.hydra.blank.db.service.impl.ParametersOperateServiceImpl" />
+	<bean id="parametersOperateService" class="com.hydra.core.db.service.impl.ParametersOperateServiceImpl" />
 </beans>

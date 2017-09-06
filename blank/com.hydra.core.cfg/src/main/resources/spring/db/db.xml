@@ -6,7 +6,7 @@
 	
 	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />
 	
-	<bean id="sqlMap" class="com.hydra.blank.db.sqlmap.impl.SqlMapFactoryBean">
+	<bean id="sqlMap" class="com.hydra.core.db.sqlmap.impl.SqlMapFactoryBean">
 		<qualifier value="main" />
 		<property name="dataSource" ref="dataSource" />
 		<!-- 此处应注入ibatis配置文件，而非sqlMap文件，否则会出现“there is no statement.....异常” -->
