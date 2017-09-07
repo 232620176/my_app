@@ -4,6 +4,7 @@ apply plugin: 'jetty'
 dependencies {
 	compile "org.springframework:spring-webmvc:$springVersion"
 	
+	compile project(":com.hydra.blank.trans")
 	compile project(":com.hydra.core.cfg")
 	compile project(":com.hydra.core.db")
 	compile project(":com.hydra.core.transport")
