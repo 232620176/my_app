@@ -17,7 +17,7 @@ public class ConfigUtil {
 			PRO.clear();
 			InputStream is = null;
 			try {
-				is = ClassLoader.getSystemResourceAsStream(path);
+				is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 				PRO.load(is);
 			} catch (Exception e) {
 				logger.error("{}", e);
