@@ -10,24 +10,23 @@ import org.slf4j.LoggerFactory;
 public abstract class MultiThreadPoolTask<T> {
 	public void start(){
 		ExecutorService fixedThreadPool = Executors.newFixedThreadPool(max_thread);
-		while(runAble){
-			final T item = popTask();
-			fixedThreadPool.execute(new Thread() {
-				@Override
-				public void run() {
-					try {
-						runTask(item);
-					} catch (Exception e) {
-						logger.error("{}", e);
+		try {
+			while(runAble){
+				final T item = popTask();
+				fixedThreadPool.execute(new Thread() {
+					@Override
+					public void run() {
+						try {
+							runTask(item);
+						} catch (Exception e) {
+							logger.error("{}", e);
+						}
 					}
-				}
-			});
+				});
+			}
+		}finally{
+			fixedThreadPool.shutdown();
 		}
-		fixedThreadPool.shutdown();
-	}
-	
-	public boolean isStoped(){
-		return !runAble;
 	}
 	
 	protected T popTask(){
@@ -43,6 +42,10 @@ public abstract class MultiThreadPoolTask<T> {
 			}
 		}
 		return res;
+	}
+	
+	public boolean isStoped(){
+		return !runAble;
 	}
 	
 	public abstract void runTask(T item);
