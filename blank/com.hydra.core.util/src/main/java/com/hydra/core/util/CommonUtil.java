@@ -1,5 +1,10 @@
 package com.hydra.core.util;
 
+import java.util.concurrent.Callable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class CommonUtil {
 	/**
 	 * <p>Title: transform</p>
@@ -13,6 +18,19 @@ public class CommonUtil {
 		return (T)target;
 	}
 	
+	public static<V> V printRuntime(Callable<V> ca) throws Exception{
+		long begin = System.currentTimeMillis();
+		V res = null;
+		try {
+			res = ca.call();
+		}finally{
+			long end = System.currentTimeMillis();
+			logger.info("Total use: " + (end - begin));
+		}
+		return res;
+	}
+	
+	private static final Logger logger = LoggerFactory.getLogger(CommonUtil.class);
 	// 静态工具类，防误生成
 	private CommonUtil(){throw new UnsupportedOperationException();}
 }

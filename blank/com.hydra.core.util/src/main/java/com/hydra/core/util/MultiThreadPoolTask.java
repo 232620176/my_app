@@ -1,5 +1,6 @@
 package com.hydra.core.util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -38,7 +39,7 @@ public abstract class MultiThreadPoolTask<T> {
 				runAble = false;
 			}
 			if(0 == len % logSize){
-				logger.info(logSize + " items finished & " + len + " items left...");
+				logger.info(len + " items left...");
 			}
 		}
 		return res;
@@ -57,7 +58,8 @@ public abstract class MultiThreadPoolTask<T> {
 	private static final Logger logger = LoggerFactory.getLogger(MultiThreadPoolTask.class);
 	public void setTaskList(List<T> taskList) {
 		runAble = true;
-		this.taskList = taskList;
+		this.taskList = new ArrayList<T>(taskList);
+		logger.info("Task size is: " + taskList.size());
 	}
 	
 	public void setMax_thread(int max_thread) {
