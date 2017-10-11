@@ -3,4 +3,5 @@ include 'com.hydra.blank.trans',\
 'com.hydra.core.cfg',\
 'com.hydra.core.db',\
 'com.hydra.core.transport',\
-'com.hydra.core.util'
+'com.hydra.core.util',\
+'com.hydra.hadoop'
