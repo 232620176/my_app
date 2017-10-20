@@ -1,5 +1,6 @@
 package com.hydra.hadoop.mr;
 
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -9,7 +10,9 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class JobRun {
 	public static void main(String[] args) throws Exception{
-		Job job = Job.getInstance();
+		Configuration conf = new Configuration();
+		
+		Job job = Job.getInstance(conf, "word count");
 		job.setJarByClass(JobRun.class);
 		job.setMapperClass(WcMapper.class);
 		job.setReducerClass(WcReducer.class);
