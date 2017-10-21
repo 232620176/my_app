@@ -1,5 +1,5 @@
 dependencies {
 	compile "org.apache.hadoop:hadoop-common:2.8.1"
 	compile "org.apache.hadoop:hadoop-mapreduce-client-core:2.8.1"
-	compile project(":com.hydra.core.util")
+	//compile project(":com.hydra.core.util")
 }
