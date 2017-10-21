@@ -1,4 +1,4 @@
-package com.hydra.hadoop.mr;
+package com.hydra.hadoop.mr.wc;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package com.hydra.hadoop.mr;
+package com.hydra.hadoop.mr.wc;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
