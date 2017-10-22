@@ -22,7 +22,10 @@ public class RunTemperatureJob {
 	private static Logger logger = LoggerFactory.getLogger(RunTemperatureJob.class);
 	
 	public static void main(String[] args) throws Exception{
-		MRUtil.runTemplate("Temperature", 4, new Callable() {
+		String name = "temperature";
+		String[] path = {name, name};
+		//三个年份，故而需要三个reduce
+		MRUtil.runTemplateWithBasePath(name, 3, new Callable() {
 			@Override
 			public void initJob(Job job) {
 				job.setJarByClass(RunTemperatureJob.class);
@@ -37,7 +40,7 @@ public class RunTemperatureJob {
 				job.setPartitionerClass(TemperaturePartition.class);
 				job.setSortComparatorClass(SortTemperature.class);
 			}
-		}, args);
+		}, path);
 	}
 	
 	static class TemperatureMapper extends Mapper<LongWritable, Text, KeyPair, Text>{
