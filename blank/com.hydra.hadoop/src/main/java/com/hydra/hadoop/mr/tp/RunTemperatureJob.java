@@ -18,7 +18,7 @@ import com.hydra.hadoop.mr.util.MRUtil;
 import com.hydra.hadoop.mr.util.MRUtil.Callable;
 
 public class RunTemperatureJob {
-	private static DateFormat DF = new SimpleDateFormat("yyyy-MM-dd HH:mi:ss");
+	private static DateFormat DF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static Logger logger = LoggerFactory.getLogger(RunTemperatureJob.class);
 	
 	public static void main(String[] args) throws Exception{

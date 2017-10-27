@@ -1,6 +1,9 @@
 package com.hydra.hadoop.mr.util;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -12,6 +15,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MRUtil {
+	private static final DateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
+	
+	public static String getDateStr(){
+		return getDateStr(new Date());
+	}
+	
+	public static String getDateStr(Date date){
+		return DF.format(date);
+	}
+	
 	public static String[] mergeArray(String[] args, String[] path){
 		String[] param = new String[args.length + path.length];
 		System.arraycopy(args, 0, param, 0, args.length);
