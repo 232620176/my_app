@@ -2,6 +2,7 @@ dependencies {
 	compile "org.aspectj:aspectjrt:$aspectjVersion"
 	compile "org.aspectj:aspectjweaver:$aspectjVersion"
 	compile "org.springframework:spring-aop:$springVersion"
+	testCompile "junit:junit:4.12"
 	
 	compile project(":com.hydra.core.cfg")
 	compile project(":com.hydra.core.db")

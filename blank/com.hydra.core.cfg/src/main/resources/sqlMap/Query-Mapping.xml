@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+	PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="tables">
+	<select id="qryColumn" resultType="string">
+		SELECT u.COLUMN_NAME FROM User_Tab_Columns u
+		WHERE u.TABLE_NAME=UPPER(#{table_name})
+		ORDER BY u.COLUMN_ID
+	</select>
+	
+	<select id="qryTables" resultType="map">
+		select ${table_header}
+		from ${table_name} p
+		where 1=1
+		<if test="lv0">and ${lk0} like '%' || #{lv0} || '%'</if>
+		<if test="lv1">and ${lk1} like '%' || #{lv1} || '%'</if>
+		<if test="lv2">and ${lk1} like '%' || #{lv2} || '%'</if>
+		<if test="v0">and ${k0}=#{v0}</if>
+		<if test="v1">and ${k1}=#{v1}</if>
+		<if test="v2">and ${k1}=#{v2}</if>
+		and rownum &lt;= 100
+	</select>
+</mapper>
