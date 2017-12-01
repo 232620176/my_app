@@ -52,7 +52,9 @@ public class RunLogAnalyzerTimesJob {
 		protected void reduce(IntWritable key, Iterable<Text> value, Context context)
 				throws IOException, InterruptedException {
 			for(Text t : value){
-				context.write(key, t);
+				if(key.get() > 5000){
+					context.write(key, t);
+				}
 			}
 		}
 	}
