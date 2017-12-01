@@ -1,6 +1,7 @@
 package com.hydra.blank.trans.test;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -8,6 +9,13 @@ import org.slf4j.LoggerFactory;
 
 public class TestString {
 	private static Logger logger = LoggerFactory.getLogger(TestString.class);
+	
+	@Test
+	public void testUUID(){
+		String uuid = UUID.randomUUID().toString();
+		System.out.println(uuid);
+		System.out.println(uuid.replaceAll("-", ""));
+	}
 	
 	@Test
 	public void testSplilt(){
