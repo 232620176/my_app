@@ -1,6 +1,6 @@
 package com.hydra.core.util;
 
-import java.util.concurrent.Callable;
+import java.util.function.Supplier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +18,11 @@ public class CommonUtil {
 		return (T)target;
 	}
 	
-	public static<V> V printRuntime(Callable<V> ca) throws Exception{
+	public static<V> V printRuntime(Supplier<V> ca){
 		long begin = System.currentTimeMillis();
 		V res = null;
 		try {
-			res = ca.call();
+			res = ca.get();
 		}finally{
 			long end = System.currentTimeMillis();
 			logger.info("Total use: " + (end - begin));

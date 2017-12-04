@@ -8,7 +8,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TestString {
+	\u000a\u000d
 	private static Logger logger = LoggerFactory.getLogger(TestString.class);
+	
+	@Test
+	public void testString2Integer(){
+//		String s = "999_999_999";
+//		System.out.println(Integer.valueOf(s));NumberFormatException
+		Integer i = 999_999_999;
+		System.out.println(i);
+	}
 	
 	@Test
 	public void testUUID(){
