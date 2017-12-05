@@ -15,7 +15,7 @@ public class TestString {
 	public void testString2Integer(){
 //		String s = "999_999_999";
 //		System.out.println(Integer.valueOf(s));NumberFormatException
-		Integer i = 999_999_999;
+		Integer i = 9_9_9_999_9_99;
 		System.out.println(i);
 	}
 	
