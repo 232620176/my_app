@@ -37,12 +37,17 @@ public class RunSortLogAnalyzeProcessJob {
 	}
 	
 	public static class ProcessMapper extends Mapper<LongWritable, Text, IntWritable, Text>{
+		private IntWritable keyInt = new IntWritable();
+		private Text valText = new Text();
+		
 		@Override
 		protected void map(LongWritable key, Text value, Context context)
 				throws IOException, InterruptedException {
 			String line = value.toString();
 			String[] ss = line.split("\\s");
-			context.write(new IntWritable(Integer.valueOf(ss[1])), new Text(ss[0]));
+			keyInt.set(Integer.valueOf(ss[1]));
+			valText.set(ss[0]);
+			context.write(keyInt, valText);
 		}
 	}
 	

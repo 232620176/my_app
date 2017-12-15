@@ -35,18 +35,23 @@ public class RunLogAnalyzeExceptionJob {
 	
 	public static class ExceptionMapper extends Mapper<LongWritable, Text, Text, IntWritable>{
 		private static final IntWritable ONE = new IntWritable(1);
+		private Text keyText = new Text();
+		
 		@Override
 		protected void map(LongWritable key, Text value, Context context)
 				throws IOException, InterruptedException {
 			String line = value.toString();
 			String[] ss = line.split(":");
 			if(ss.length > 1){
-				context.write(new Text(ss[ss.length - 1]), ONE);
+				keyText.set(ss[ss.length - 1]);
+				context.write(keyText, ONE);
 			}
 		}
 	}
 	
 	public static class ExceptionReduce extends Reducer<Text, IntWritable, Text, IntWritable>{
+		private IntWritable iSum = new IntWritable();
+		
 		@Override
 		protected void reduce(Text key, Iterable<IntWritable> value, Context context)
 				throws IOException, InterruptedException {
@@ -54,7 +59,8 @@ public class RunLogAnalyzeExceptionJob {
 			for(IntWritable i : value){
 				sum += i.get();
 			}
-			context.write(key, new IntWritable(sum));
+			iSum.set(sum);
+			context.write(key, iSum);
 		}
 	}
 }

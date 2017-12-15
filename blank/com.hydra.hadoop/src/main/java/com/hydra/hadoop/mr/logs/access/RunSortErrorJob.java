@@ -44,8 +44,8 @@ public class RunSortErrorJob {
 	}
 	
 	public static class CountErrorMapper extends Mapper<LongWritable, Text, Pojo, IntWritable>{
-		private static final Pojo POJO = new Pojo();
-		private static final IntWritable VAL = new IntWritable(1);
+		private Pojo pojo = new Pojo();
+		private IntWritable val = new IntWritable(1);
 		@Override
 		protected void map(LongWritable key, Text value, Context context)
 				throws IOException, InterruptedException {
@@ -56,16 +56,16 @@ public class RunSortErrorJob {
 				String statu = mat.group(6);
 				if(!"200".equals(statu)){
 					String url = mat.group(5).split("\\?")[0];
-					POJO.setStatus(statu);
-					POJO.setUrl(url);
-					context.write(POJO, VAL);
+					pojo.setStatus(statu);
+					pojo.setUrl(url);
+					context.write(pojo, val);
 				}
 			}
 		}
 	}
 	
 	public static class CountErrorReduce extends Reducer<Pojo, IntWritable, Pojo, IntWritable>{
-		private static final IntWritable VAL = new IntWritable(1);
+		private IntWritable val = new IntWritable();
 		@Override
 		protected void reduce(Pojo key, Iterable<IntWritable> value, Context context)
 				throws IOException, InterruptedException {
@@ -74,8 +74,8 @@ public class RunSortErrorJob {
 				sum += i.get();
 			}
 			key.sum = sum;
-			VAL.set(sum);
-			context.write(key, VAL);
+			val.set(sum);
+			context.write(key, val);
 		}
 	}
 	

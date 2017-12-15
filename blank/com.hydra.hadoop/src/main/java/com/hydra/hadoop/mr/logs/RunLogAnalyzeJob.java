@@ -34,21 +34,28 @@ public class RunLogAnalyzeJob {
 	}
 	
 	public static class LogAnalyzeMapper extends Mapper<LongWritable, Text, Text, Text>{
+		private Text exception = new Text("exception");
+		private Text process = new Text("process");
+		private Text times = new Text("times");
+		private Text tValue = new Text();
+		
 		@Override
 		protected void map(LongWritable key, Text value, Context context)
 				throws IOException, InterruptedException {
 			String line = value.toString();
 			String[] as = line.split("\\s");
-			if(line.indexOf("process start") > -1){
+			if(line.indexOf("process start") > -1 && as.length > 1){
 				StringBuilder sb = new StringBuilder(as[0]).append(" ").append(as[1])
 						.append(" ").append(line.split("--process start---\\s")[1]);
-				context.write(new Text("process"), new Text(sb.toString()));
-			}else if(line.indexOf("process end") > -1){
+				tValue.set(sb.toString());
+				context.write(process, tValue);
+			}else if(line.indexOf("process end") > -1 && as.length > 1){
 				StringBuilder sb = new StringBuilder(as[0]).append(" ").append(as[1])
 						.append(" ").append(line.split("--process end---\\s")[1]);
-				context.write(new Text("times"), new Text(sb.toString()));
+				tValue.set(sb.toString());
+				context.write(times, tValue);
 			}else if(line.indexOf("Exception") > -1){
-				context.write(new Text("exception"), value);
+				context.write(exception, value);
 			}
 		}
 	}

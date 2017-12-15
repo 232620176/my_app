@@ -34,16 +34,22 @@ public class RunLogAnalyzeProcessJob {
 	}
 	
 	public static class ProcessMapper extends Mapper<LongWritable, Text, Text, IntWritable>{
+		private static final IntWritable ONE = new IntWritable(1);
+		private Text keyText = new Text();
+		
 		@Override
 		protected void map(LongWritable key, Text value, Context context)
 				throws IOException, InterruptedException {
 			String line = value.toString();
 			String[] ss = line.split("\\s");
-			context.write(new Text(ss[3]), new IntWritable(1));
+			keyText.set(ss[3]);
+			context.write(keyText, ONE);
 		}
 	}
 	
 	public static class ProcessReduce extends Reducer<Text, IntWritable, Text, IntWritable>{
+		private IntWritable iSum = new IntWritable();
+		
 		@Override
 		protected void reduce(Text key, Iterable<IntWritable> value, Context context)
 				throws IOException, InterruptedException {
@@ -51,7 +57,8 @@ public class RunLogAnalyzeProcessJob {
 			for(IntWritable i : value){
 				sum += i.get();
 			}
-			context.write(key, new IntWritable(sum));
+			iSum.set(sum);
+			context.write(key, iSum);
 		}
 	}
 }

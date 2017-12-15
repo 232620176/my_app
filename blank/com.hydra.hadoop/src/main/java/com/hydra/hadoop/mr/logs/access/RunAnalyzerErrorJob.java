@@ -46,6 +46,8 @@ public class RunAnalyzerErrorJob {
 	}
 	
 	public static class CountErrorMapper extends Mapper<LongWritable, Text, Pojo, IntWritable>{
+		private static final IntWritable ONE = new IntWritable(1);
+		
 		@Override
 		protected void map(LongWritable key, Text value, Context context)
 				throws IOException, InterruptedException {
@@ -59,13 +61,15 @@ public class RunAnalyzerErrorJob {
 					Pojo pojo = new Pojo();
 					pojo.setStatus(statu);
 					pojo.setUrl(url);
-					context.write(pojo, new IntWritable(1));
+					context.write(pojo, ONE);
 				}
 			}
 		}
 	}
 	
 	public static class CountErrorReduce extends Reducer<Pojo, IntWritable, Pojo, IntWritable>{
+		private IntWritable iSum = new IntWritable();
+		
 		@Override
 		protected void reduce(Pojo key, Iterable<IntWritable> value, Context context)
 				throws IOException, InterruptedException {
@@ -74,7 +78,8 @@ public class RunAnalyzerErrorJob {
 				sum += i.get();
 			}
 			key.sum = sum;
-			context.write(key, new IntWritable(sum));
+			iSum.set(sum);
+			context.write(key, iSum);
 		}
 	}
 	

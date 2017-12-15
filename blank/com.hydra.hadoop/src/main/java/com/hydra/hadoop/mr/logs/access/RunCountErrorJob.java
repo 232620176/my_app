@@ -39,6 +39,9 @@ public class RunCountErrorJob {
 	}
 	
 	public static class CountErrorMapper extends Mapper<LongWritable, Text, Text, IntWritable>{
+		private static final IntWritable ONE = new IntWritable(1);
+		private Text keyText = new Text();
+		
 		@Override
 		protected void map(LongWritable key, Text value, Context context)
 				throws IOException, InterruptedException {
@@ -47,12 +50,15 @@ public class RunCountErrorJob {
 			boolean match = mat.matches();
 			if(match){
 				String code = mat.group(6);
-				context.write(new Text(code), new IntWritable(1));
+				keyText.set(code);
+				context.write(keyText, ONE);
 			}
 		}
 	}
 	
 	public static class CountErrorReduce extends Reducer<Text, IntWritable, Text, IntWritable>{
+		private IntWritable iSum = new IntWritable();
+		
 		@Override
 		protected void reduce(Text key, Iterable<IntWritable> value, Context context)
 				throws IOException, InterruptedException {
@@ -60,7 +66,8 @@ public class RunCountErrorJob {
 			for(IntWritable i : value){
 				sum += i.get();
 			}
-			context.write(key, new IntWritable(sum));
+			iSum.set(sum);
+			context.write(key, iSum);
 		}
 	}
 }
