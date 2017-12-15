@@ -7,7 +7,7 @@
 						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 	<context:annotation-config />
-	<task:executor id="taskExecutor" pool-size="5"/>
+	<task:executor id="taskExecutor" pool-size="16-32" queue-capacity="128" keep-alive="16"/>
 	<task:annotation-driven executor="taskExecutor"/>
 	
 	<bean id="asyncService" class="com.hydra.blank.trans.util.AsyncService" />
