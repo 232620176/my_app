@@ -1,4 +1,5 @@
 ext {
+	apacheVersion = '2.6'
 	aspectjVersion = '1.8.10'
 	commonsVersion = '1.2'
 	elasticVersion = '2.4.0'

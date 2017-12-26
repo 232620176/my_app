@@ -12,6 +12,12 @@ public class TestString {
 	private static Logger logger = LoggerFactory.getLogger(TestString.class);
 	
 	@Test
+	public void testIndexOf(){
+		String val = "logging.TransInfo - --process start--- 4400003233";
+		System.out.println(val.indexOf("--process start--- "));
+	}
+	
+	@Test
 	public void testString2Integer(){
 //		String s = "999_999_999";
 //		System.out.println(Integer.valueOf(s));NumberFormatException

@@ -44,12 +44,16 @@ public class RunLogAnalyzeJob {
 				throws IOException, InterruptedException {
 			String line = value.toString();
 			String[] as = line.split("\\s");
-			if(line.indexOf("process start") > -1 && as.length > 1){
-				StringBuilder sb = new StringBuilder(as[0]).append(" ").append(as[1])
-						.append(" ").append(line.split("--process start---\\s")[1]);
+			if(line.indexOf("process start") > -1){
+				StringBuilder sb = new StringBuilder(as[0]).append(" ").append(as[1]).append(" ");
+				if(line.split("--process start---\\s").length > 1){
+					sb.append(line.split("--process start---\\s")[1]);
+				}else{
+					sb.append("null");
+				}
 				tValue.set(sb.toString());
 				context.write(process, tValue);
-			}else if(line.indexOf("process end") > -1 && as.length > 1){
+			}else if(line.indexOf("process end") > -1){
 				StringBuilder sb = new StringBuilder(as[0]).append(" ").append(as[1])
 						.append(" ").append(line.split("--process end---\\s")[1]);
 				tValue.set(sb.toString());
