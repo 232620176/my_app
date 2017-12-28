@@ -43,8 +43,8 @@
 	</head>
 	<body>
 		<a href="query.jsp" target="_blank">表查询</a><br />
-		<input id="paramName" alt="参数名" placeholder="参数名" /> <input type="button" onclick="queryParam('/param/query')" value="参数查询"/><br />
-		<input id="text" alt="文本" placeholder="文本" /> <input id="key" alt="秘钥" placeholder="秘钥" /> <input type="button" onclick="sign('/sign')" value="MD5"/><br />
+		<input id="paramName" alt="参数名" placeholder="参数名" /> <input type="button" onclick="queryParam('param/query')" value="参数查询"/><br />
+		<input id="text" alt="文本" placeholder="文本" /> <input id="key" alt="秘钥" placeholder="秘钥" /> <input type="button" onclick="sign('sign')" value="MD5"/><br />
 		<hr />
 		<input type="button" onclick="clear()" value="clear"/><br />
 		<div id="res"></div>
