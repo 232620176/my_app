@@ -42,7 +42,7 @@ public class QueryController implements Controller{
 			}
 			param.put("table_header", sb.toString());
 		}else{
-			column = Arrays.asList(col.split(","));
+			column = Arrays.asList(col.toUpperCase().split(","));
 			param.put("table_header", col);
 		}
 		processParam("k0", param, request);
