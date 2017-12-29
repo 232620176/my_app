@@ -37,8 +37,10 @@ public class QryLogInfoController implements Controller{
 			return mv;
 		}
 		String osName = System.getProperty("os.name");
+		Charset ct = Charset.forName("UTF-8");
 		if(osName != null && osName.toLowerCase().startsWith("windows")){
 			keyWord = BASE_STR_WINDOWS + keyWord;
+			ct = Charset.forName("GBK");
 		}else{
 			if(!"clearGetLog".equals(keyWord)){
 				if(keyWord.indexOf("exact@") > -1){
@@ -55,7 +57,7 @@ public class QryLogInfoController implements Controller{
 			pro = Runtime.getRuntime().exec(keyWord);
 			pro.waitFor();
 			InputStream is = pro.getInputStream();
-			bf = new BufferedReader(new InputStreamReader(is, Charset.forName("GBK")));
+			bf = new BufferedReader(new InputStreamReader(is, ct));
 			String msg = null;
 			while((msg = bf.readLine()) != null){
 				infoList.add(msg);
