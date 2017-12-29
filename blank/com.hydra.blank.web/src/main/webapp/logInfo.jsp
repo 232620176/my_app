@@ -50,6 +50,12 @@
 				$('#res').html(' ');
 			}
 		</script>
+		<style type="text/css">
+			xmp {
+				white-space: pre-wrap;
+				word-wrap: break-word;
+			}
+		</style>
 	</head>
 	<body>
 		<input type='text' name='keyWord' id='keyWord' />
