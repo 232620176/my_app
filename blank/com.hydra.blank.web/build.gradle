@@ -17,11 +17,11 @@ dependencies {
 jettyRun{
 	webAppSourceDirectory file("$projectDir/src/main/webapp")
 	httpPort 8080
-	contextPath 'blank'
+	contextPath 'app'
 	scanIntervalSeconds 0
 	reload "automatic"
 }
 
 war {
-	archiveName='blank.war'
+	archiveName='app.war'
 }
