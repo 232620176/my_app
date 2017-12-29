@@ -6,6 +6,7 @@
 	<bean name="/bank" class="com.hydra.blank.web.controller.BanksController"/>
 	<bean name="/cardList" class="com.hydra.blank.web.controller.CardListController"/>
 	<bean name="/hello" class="com.hydra.blank.web.controller.HelloWorldController"/>
+	<bean name="/qryLogInfo" class="com.hydra.blank.web.controller.QryLogInfoController"/>
 	<bean name="/query" class="com.hydra.blank.web.controller.QueryController"/>
 	<bean name="/str" class="com.hydra.blank.web.controller.StringProcessController"/>
 </beans>

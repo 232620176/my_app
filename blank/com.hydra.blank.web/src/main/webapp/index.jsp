@@ -103,6 +103,11 @@
 						<input type='button' onclick="processStr('process');" value='替换' /> *支持正则表达式
 					</td>
 				</tr>
+				<tr>
+					<td colspan="3">
+						<li><a href="logInfo.jsp" target="_blank">查日志</a></li>
+					</td>
+				</tr>
 			</table>
 		</form>
 		<hr />
