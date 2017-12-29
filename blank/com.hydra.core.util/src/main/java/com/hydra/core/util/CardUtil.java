@@ -50,10 +50,9 @@ public class CardUtil {
 	public static List<String> getSome(String source, int times){
 		List<String> res = new ArrayList<String>();
 		List<String> used = new ArrayList<String>(times);
-		logger.info("Source is: \n" + source);
+		logger.info("Source is: {}", source);
 		int len = source.length();
 		String base = source.substring(0, len - 6) + getRandom(2);
-		logger.info("And targets are: ");
 		for(int i = 0; i < times; i++){
 			String r = getRandom(3);
 			while(used.contains(r)){
@@ -63,8 +62,8 @@ public class CardUtil {
 			String s = base + r;
 			String cardNo = s + getBankCardCheckCode(s);
 			res.add(cardNo);
-			logger.info(cardNo);
 		}
+		logger.info("And targets are: {}", res);
 		return res;
 	}
 	

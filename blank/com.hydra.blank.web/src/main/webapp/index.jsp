@@ -90,7 +90,7 @@
 				
 				<tr>
 					<td>
-						<li></li>
+						<li><a href="bank" target="_blank">生成卡</a></li>
 					</td>
 					<td>
 						<input id="text" alt="文本" placeholder="文本" />

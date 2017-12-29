@@ -3,6 +3,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
 	<!-- 处理器 -->
+	<bean name="/bank" class="com.hydra.blank.web.controller.BanksController"/>
+	<bean name="/cardList" class="com.hydra.blank.web.controller.CardListController"/>
 	<bean name="/hello" class="com.hydra.blank.web.controller.HelloWorldController"/>
 	<bean name="/query" class="com.hydra.blank.web.controller.QueryController"/>
 	<bean name="/str" class="com.hydra.blank.web.controller.StringProcessController"/>
