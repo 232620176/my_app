@@ -5,4 +5,5 @@
 	<!-- 处理器 -->
 	<bean name="/hello" class="com.hydra.blank.web.controller.HelloWorldController"/>
 	<bean name="/query" class="com.hydra.blank.web.controller.QueryController"/>
+	<bean name="/str" class="com.hydra.blank.web.controller.StringProcessController"/>
 </beans>

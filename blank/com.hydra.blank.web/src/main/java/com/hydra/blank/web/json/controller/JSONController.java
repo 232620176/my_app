@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hydra.blank.web.annotation.ServletLog;
 import com.hydra.core.db.service.ParametersQueryService;
 
 @Controller
 @RequestMapping("/param/query")
 public class JSONController {
+	@ServletLog
 	@RequestMapping(value="{name}", method=RequestMethod.GET)
 	public @ResponseBody String getConfiguration(@PathVariable String name){
 		String res = pqs.get(name);

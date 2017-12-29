@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
+import com.hydra.blank.web.annotation.ServletLog;
 import com.hydra.core.db.service.ParametersQueryService;
 import com.hydra.core.util.StringUtil;
 
 public class HelloWorldController implements Controller{
 	@Override
+	@ServletLog
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		//1、收集参数、验证参数

@@ -5,48 +5,108 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>首页</title>
 		<script type='text/javascript' src='./lib/jquery-1.4.js'></script>
+		<script type='text/javascript' src='./lib/utils.js'></script>
 		<script type="text/javascript">
-		function sign(url){
-			var txt = processURIStr("text");
-			var key = processURIStr("key");
-			url += "/" + txt;
-			if(null !== key && key !== undefined && key !== ''){
-				url += "/" + key;
-			}
-			query(url);
-		}
-		function processURIStr(key){
-			var txt = $("#" + key).val();
-			return escape(txt);
-		}
-		function queryParam(url){
-			url += "/" + $("#paramName").val();
-			query(url);
-		}
-		function query(url){
-			console.log(url);
-			$.ajax({
-				type:'GET',
-				url:url,
-				cache:'false',
-				success:function(data){
-					var res = $('#res').html();
-					console.log(res);
-					$('#res').html(data + "<br />" + res);
+			function sign(url){
+				var txt = processURIStr("text");
+				var key = processURIStr("key");
+				url += "/" + txt;
+				if(null !== key && key !== undefined && key !== ''){
+					url += "/" + key;
 				}
-			});
-		}
-		function clear(){
-			$('#res').html('');
-		}
+				query(url);
+			}
+			
+			function processURIStr(key){
+				var txt = $("#" + key).val();
+				return escape(txt);
+			}
+			
+			function queryParam(url){
+				url += "/" + $("#paramName").val();
+				query(url);
+			}
+			
+			function query(url){
+				console.log(url);
+				$.ajax({
+					type:'GET',
+					url:url,
+					cache:'false',
+					success:function(data){
+						addMSG(data);
+					}
+				});
+			}
+			
+			function processStr(typ, flg){
+				var msg = '';
+				$.ajax({
+					type:'GET',
+					url:'str',
+					data:'type=' + typ + '&source=' + $('#source').val() 
+						+ '&pattern=' + processURIStr('pattern') + '&target=' + processURIStr('target'),
+					cache:'false',
+					success:function(data){
+						msg += data.replace(/[\r\n]/g, '');
+						addMSG(msg);
+						if(flg){
+							copyToClipBoard(msg);
+						}
+					}
+				});
+			}
+			
+			function addMSG(data){
+				var res = $('#res').html();
+				$('#res').html(data + "<br />" + res);
+			}
+			
+			function clearMSG(){
+				console.log("in clear");
+				$('#res').html('');
+			}
 		</script>
 	</head>
 	<body>
-		<a href="query.jsp" target="_blank">表查询</a><br />
-		<input id="paramName" alt="参数名" placeholder="参数名" /> <input type="button" onclick="queryParam('param/query')" value="参数查询"/><br />
-		<input id="text" alt="文本" placeholder="文本" /> <input id="key" alt="秘钥" placeholder="秘钥" /> <input type="button" onclick="sign('sign')" value="MD5"/><br />
+		<form action="#">
+			<table width="100%">
+				<tr>
+					<td width='20%'>
+						<li><a href="query.jsp" target="_blank">表查询</a></li>
+					</td>
+					<td width='40%'>
+						<input id="paramName" alt="参数名" placeholder="参数名" />
+						<input type="button" onclick="queryParam('param/query')" value="参数查询"/>
+					</td>
+					<td>
+						<input type='text' id='source' name='source' placeholder='source' />
+						<input type='button' onclick="processStr('upper');" value='大写' />
+						<input type='button' onclick="processStr('lower');" value='小写' />
+						<input type='button' onclick="processStr('upper', '1');" value='大写并复制' />
+						<input type='button' onclick="processStr('lower', '1');" value='小写并复制' />
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<li></li>
+					</td>
+					<td>
+						<input id="text" alt="文本" placeholder="文本" />
+						<input id="key" alt="秘钥" placeholder="秘钥" />
+						<input type="button" onclick="sign('sign')" value="MD5"/>
+					</td>
+					<td>
+						<input type='text' id='pattern' name='pattern' placeholder='pattern' />
+						<input type='text' id='target' name='target' placeholder='target' />
+						<input type='button' onclick="processStr('process');" value='替换' /> *支持正则表达式
+					</td>
+				</tr>
+			</table>
+		</form>
 		<hr />
-		<input type="button" onclick="clear()" value="clear"/><br />
+		<input type="button" onclick="clearMSG()" value="clear"/><br />
 		<div id="res"></div>
 	</body>
 </html>

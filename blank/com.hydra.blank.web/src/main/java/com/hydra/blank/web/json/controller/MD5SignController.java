@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hydra.blank.web.annotation.ServletLog;
 import com.hydra.core.db.service.ParametersQueryService;
 import com.hydra.core.util.MD5;
 
 @Controller
 @RequestMapping("/sign")
 public class MD5SignController {
+	@ServletLog
 	@RequestMapping(value="/{text}/{key}", method=RequestMethod.GET)
 	public @ResponseBody String sign(@PathVariable String text, @PathVariable String key){
 		String res = MD5.sign(text, key);
@@ -23,6 +25,7 @@ public class MD5SignController {
 		return res;
 	}
 	
+	@ServletLog
 	@RequestMapping(value="/{text}", method=RequestMethod.GET)
 	public @ResponseBody String sign(@PathVariable String text){
 		String key = pqs.get("WX_QRCode_Payback_Key");
