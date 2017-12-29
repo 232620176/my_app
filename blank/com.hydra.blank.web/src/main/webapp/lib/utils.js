@@ -32,3 +32,16 @@ function copyToClipBoard(s) {
 		alert("该浏览器暂不支持复制功能。。。");
 	}
 }
+
+//#id对应值为空时，自动定位光标
+function autoFocus(id, cal){
+	var sid = '#' + id;
+	var txt = $(sid).val();
+	if(txt || txt != 0){
+		if(typeof cal === 'function'){
+			cal();
+		}
+	}else{
+		$(sid).focus();
+	}
+}

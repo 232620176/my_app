@@ -5,36 +5,45 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Query</title>
 		<script type='text/javascript' src='./lib/jquery-1.4.js'></script>
+		<script type='text/javascript' src='./lib/utils.js'></script>
 		<script type="text/javascript">
-		function query(){
-			var url = "tableName=" + $('#tableName').val();
-			url += "&col=" + $('#col').val();
-			url += "&k0=" + $('#k0').val();
-			url += "&v0=" + $('#v0').val();
-			url += "&k1=" + $('#k1').val();
-			url += "&v1=" + $('#v1').val();
-			url += "&k2=" + $('#k2').val();
-			url += "&v2=" + $('#v2').val();
-			url += "&lk0=" + $('#lk0').val();
-			url += "&lv0=" + $('#lv0').val();
-			url += "&lk1=" + $('#lk1').val();
-			url += "&lv1=" + $('#lv1').val();
-			url += "&lk2=" + $('#lk2').val();
-			url += "&lv2=" + $('#lv2').val();
-			$.ajax({
-				type:'GET',
-				url:'query',
-				data:url,
-				cache:'false',
-				success:function(data){
-					$('#res').html(data);
+			//绑定键盘按下事件
+			$(document).keypress(function(e) {
+				// 回车键事件
+				if(e.which == 13) {
+					autoFocus('tableName', query);
 				}
 			});
-		}
+			
+			function query(){
+				var url = "tableName=" + $('#tableName').val();
+				url += "&col=" + $('#col').val();
+				url += "&k0=" + $('#k0').val();
+				url += "&v0=" + $('#v0').val();
+				url += "&k1=" + $('#k1').val();
+				url += "&v1=" + $('#v1').val();
+				url += "&k2=" + $('#k2').val();
+				url += "&v2=" + $('#v2').val();
+				url += "&lk0=" + $('#lk0').val();
+				url += "&lv0=" + $('#lv0').val();
+				url += "&lk1=" + $('#lk1').val();
+				url += "&lv1=" + $('#lv1').val();
+				url += "&lk2=" + $('#lk2').val();
+				url += "&lv2=" + $('#lv2').val();
+				$.ajax({
+					type:'GET',
+					url:'query',
+					data:url,
+					cache:'false',
+					success:function(data){
+						$('#res').html(data);
+					}
+				});
+			}
 		</script>
 	</head>
 	<body>
-		表：<input id="tableName" name="tableName" value="parameters" /> <input type='button' onclick="query();" value='查询' /><br />
+		表：<input id="tableName" name="tableName" value="parameters" autofocus=true /> <input type='button' onclick="query();" value='查询' /><br />
 		列：<input id="col" name="col" /><br />
 		键：<input id="k0" name="k0" />值：<input id="v0" name="v0" /><br />
 		键：<input id="k1" name="k1" />值：<input id="v1" name="v1" /><br />

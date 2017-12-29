@@ -6,13 +6,13 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>日志信息查询</title>
 		<script type='text/javascript' src='./lib/jquery-1.4.js'></script>
+		<script type='text/javascript' src='./lib/utils.js'></script>
 		<script type="text/javascript">
 			//绑定键盘按下事件
 			$(document).keypress(function(e) {
-				console.log("key press")
 				// 回车键事件
 				if(e.which == 13) {
-					queryLog();
+					autoFocus('keyWord', queryLog);
 				}
 			});
 			
@@ -58,7 +58,7 @@
 		</style>
 	</head>
 	<body>
-		<input type='text' name='keyWord' id='keyWord' />
+		<input type='text' name='keyWord' id='keyWord' autofocus=true />
 		<input type='button' onclick="queryLog();" value='执行' />
 		<input type='button' onclick="queryExactLog();" value='直查' />
 		<input type='button' onclick="killProcess();" value='杀进程' />
