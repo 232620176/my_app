@@ -11,4 +11,5 @@
 	<task:annotation-driven executor="taskExecutor"/>
 	
 	<bean id="asyncService" class="com.hydra.blank.trans.util.AsyncService" />
+	<bean id="cardService" class="com.hydra.blank.trans.util.CardService" />
 </beans>

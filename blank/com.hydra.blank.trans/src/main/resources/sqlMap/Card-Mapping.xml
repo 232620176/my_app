@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+	PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="card">
+	<select id="qryCardHeaderAndBankName" resultType="java.util.Map">
+		SELECT distinct(t.CARD_HEADER) as "cardHeader", NVL(b.BANKNAME, t.BANK_NAME) as "bankName"
+		FROM TABBANKINFO t LEFT JOIN BANKMAPPING b ON t.BANK_CODE=b.COREBANKCODE
+	</select>
+	
+	<select id="qryCardLenAndCardHeaderLen" resultType="java.util.Map">
+		SELECT DISTINCT t.CARD_LEN as "cardLen", t.CARD_HEADER_LEN as "cardHeaderLen"
+		FROM TABBANKINFO t
+	</select>
+</mapper>
+
+<!-- 
+
+ -->
