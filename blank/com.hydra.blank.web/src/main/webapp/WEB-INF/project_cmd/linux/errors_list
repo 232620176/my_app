@@ -1,0 +1,1 @@
+grep Exception /home/anslog/* | awk '{print $3}' | sort | uniq | grep -v by

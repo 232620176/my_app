@@ -115,8 +115,11 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3">
+					<td>
 						<li><a href="query.jsp" target="_blank">表查询</a></li>
+					</td>
+					<td colspan="2">
+						<li><a href="anslog.html" target="_blank">日志分析</a></li>
 					</td>
 				</tr>
 			</table>

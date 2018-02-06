@@ -1,0 +1,2 @@
+ls /home/anslog | sort | tail -10 | awk -F . '{print $1}'
+

@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,7 @@ import com.hydra.core.util.json.Conversion;
 public class JsonUtil {
 	private static final Logger log = LoggerFactory.getLogger(JsonUtil.class);
 	private static final ObjectMapper mapper = new ObjectMapper();
-
+	
 	static {
 		mapper.getSerializationConfig().with(new SimpleDateFormat() {
 			private static final long serialVersionUID = 727686277241170700L;
@@ -49,7 +50,7 @@ public class JsonUtil {
 		encodings.put("UTF32-BE", JsonEncoding.UTF32_BE);
 		encodings.put("UTF32-LE", JsonEncoding.UTF32_LE);
 	}
-
+	
 	public static byte[] jsonFromObject(Object object, String encoding) {
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -77,7 +78,7 @@ public class JsonUtil {
 		}
 		return out.toByteArray();
 	}
-
+	
 	public static <T> T objectFromJson(InputStream json, Class<T> klass) {
 		T object;
 		JsonParser parser = null;
@@ -125,6 +126,7 @@ public class JsonUtil {
 		}
 		return object;
 	}
+	
 	/*
 	 * parse json allow unquoted control chars
 	 */
@@ -152,6 +154,7 @@ public class JsonUtil {
 		}
 		return object;
 	}
+	
 	/*
 	 * parse json allow unquoted control chars
 	 */
@@ -179,11 +182,14 @@ public class JsonUtil {
 		}
 		return object;
 	}
-
+	
+	public static String object2JsonString(Object object) {
+		return JSONObject.valueToString(object);
+	}
+	
 	static String abbreviate(String str, int len) {
 		if (str == null || str.length() < len)
 			return str;
 		return str.substring(0, len) + " ...";
 	}
-
 }

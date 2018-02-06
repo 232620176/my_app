@@ -13,17 +13,25 @@ public class AsyncService {
 	private static Logger logger = LoggerFactory.getLogger(AsyncService.class);
 	
 	@Async
-	public Future<Long> asyncMethod(Callable call){
-		return asyncMethodTempalte(() -> call.call());
+	public Future<Long> asyncMethod(final Callable call){
+		return asyncMethodTempalte(new Callable() {
+			@Override
+			public void call() {
+				call.call();
+			}
+		});
 	}
 	
 	@Async
-	public Future<Long> asyncMethodWithNoException(Callable call){
-		return asyncMethodTempalte(() ->{
-			try {
-				call.call();
-			} catch (Exception e) {
-				logger.error("{}", e);
+	public Future<Long> asyncMethodWithNoException(final Callable call){
+		return asyncMethodTempalte(new Callable() {
+			@Override
+			public void call() {
+				try {
+					call.call();
+				} catch (Exception e) {
+					logger.error("{}", e);
+				}
 			}
 		});
 	}

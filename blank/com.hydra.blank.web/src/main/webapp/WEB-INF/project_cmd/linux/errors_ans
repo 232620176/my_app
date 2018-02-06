@@ -1,0 +1,2 @@
+grep -e $1 /home/anslog/* | awk '{print substr($1, 14, 8), $2}'
+

@@ -51,7 +51,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 <!-- 		<param-value>classpath*:spring/*.xml, classpath*:spring/task/*.xml</param-value> -->
-		<param-value>classpath*:spring/*.xml</param-value>
+		<param-value>classpath*:spring/*.xml, classpath*:spring/db/*.xml</param-value>
 	</context-param>
 	
 	<!--如果你的DispatcherServlet拦截"/"，为了实现REST风格，拦截了所有的请求，那么同时对*.js,*.jpg等静态文件的访问也就被拦截了。-->

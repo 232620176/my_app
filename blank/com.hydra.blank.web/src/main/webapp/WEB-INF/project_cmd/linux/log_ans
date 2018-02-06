@@ -1,0 +1,2 @@
+grep Exception /home/anslog/$1.log | grep -v by | awk '{print $3, $2}'
+
