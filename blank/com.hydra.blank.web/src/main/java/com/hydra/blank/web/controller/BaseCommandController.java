@@ -41,6 +41,11 @@ public class BaseCommandController implements Controller{
 			if(anslog){
 				keyWord = "log_ans " + data;
 			}
+		}else if("2".equals(type)){
+			keyWord = "file_list";
+			if(anslog){
+				keyWord = "file_ans " + data;
+			}
 		}else{
 			throw new UnsupportedOperationException("不支持的类型：" + type);
 		}
@@ -73,10 +78,15 @@ public class BaseCommandController implements Controller{
 			String msg = null;
 			while((msg = bf.readLine()) != null){
 				if(anslog){
-					String[] ans = msg.split(" ");
-					if(ans.length > 1){
-						datas.add(ans[0]);
-						infoList.add(ans[1]);
+					int i = msg.indexOf(" ");
+					if(i > 0){
+						if("2".equals(type)){
+							datas.add(msg.substring(i + 1));
+							infoList.add(msg.substring(0, i));
+						}else{
+							datas.add(msg.substring(0, i));
+							infoList.add(msg.substring(i));
+						}
 					}
 				}else{
 					infoList.add(msg);

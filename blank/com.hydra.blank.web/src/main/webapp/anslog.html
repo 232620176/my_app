@@ -20,7 +20,10 @@
 				}else if("1" == type){
 					id = "#date"
 					$("#dateSpan").show()
-				}else{
+				}else if("2" == type){
+					id = "#file"
+					$("#fileSpan").show()
+					}else{
 					console.log(type)
 				}
 				$.post("log_list", {"type":type}).done(function(data){
@@ -43,6 +46,9 @@
 				}else if("1" == type){
 					qry = $("#date").val();
 					msg = '每日异常分析';
+				}else if("2" == type){
+					qry = $("#file").val();
+					msg = '实时异常分析';
 				}else{
 					console.log(type)
 				}
@@ -67,17 +73,24 @@
 			}
 			
 			function draw(type){
+				$("#drawSpan").html('<div id="main" style="width: 100%;height:800px;" />');
+				showMsg('')
 				if("0" == type){
 					if(datas) drawPie()
 				}else if("1" == type){
 					if(ds) drawLine()
+				}else if("2" == type){
+					var str = ""
+					for(var i = 0; i < datas.length; i++){
+						str += datas[i].value + " " + datas[i].name + "<br />"
+					}
+					showMsg(str)
 				}else{
 					console.log(type)
 				}
 			}
 			
 			function drawLine(){
-				$("#drawSpan").html('<div id="main" style="width: 100%;height:800px;" />');
 				// 基于准备好的dom，初始化echarts实例
 				var barChart = echarts.init(document.getElementById('main'));
 				
@@ -86,9 +99,15 @@
 					title: {
 						text: msg
 					},
-					tooltip: {},
 					legend: {
 						data:['销量']
+					},
+					toolbox: {
+						mark: {show: true},
+						dataView: {show: true, readOnly:false},
+						magicType: {show: true, type: ['line', 'bar']},
+						restore: {show: true},
+						saveAsImage: {show: true}
 					},
 					xAxis: {
 						type: 'category',
@@ -115,7 +134,6 @@
 			}
 			
 			function drawPie(){
-				$("#drawSpan").html('<div id="main" style="width: 100%;height:800px;" />');
 				// 基于准备好的dom，初始化echarts实例
 				var pieChart = echarts.init(document.getElementById('main'));
 				pieChart.setOption({
@@ -134,6 +152,7 @@
 			function hideAll(){
 				$("#dateSpan").hide()
 				$("#errorsSpan").hide()
+				$("#fileSpan").hide()
 				showMsg('');
 			}
 			
@@ -158,10 +177,12 @@
 				<option value="-1">----类型----</option>
 				<option value="0">统计</option>
 				<option value="1">按日</option>
+				<option value="2">实时</option>
 			</select>
 			<select id="draw" onchange="draw(this.value)">
 				<option value="0">饼图</option>
 				<option value="1">线图</option>
+				<option value="2" selected>文字</option>
 			</select>
 		</span>
 		<span id="errorsSpan">
@@ -172,6 +193,11 @@
 		<span id="dateSpan">
 			<select id="date" onchange="ansLog(1)">
 				<option value="-1">----日期----</option>
+			</select>
+		</span>
+		<span id="fileSpan">
+			<select id="file" onchange="ansLog(2)">
+				<option value="-1">----文件----</option>
 			</select>
 		</span>
 		<div id="msg"></div>
