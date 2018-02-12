@@ -1,0 +1,2 @@
+grep -v 'Total' /home/ans_dir/$1.log | sort -nr
+
