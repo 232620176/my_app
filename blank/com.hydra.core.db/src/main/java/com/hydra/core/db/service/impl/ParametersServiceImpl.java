@@ -66,7 +66,7 @@ public class ParametersServiceImpl implements ParametersQueryService,
 	
 	@Override
 	public void set(String paramName, String paramValue) {
-		Map<String, Object> param = MapUtil.getMap(5);
+		Map<String, Object> param = MapUtil.getHashMap(5);
 		param.put("key", paramName);
 		param.put("value", paramValue);
 		logger.debug("\n--------------参数{}的值变更为{}", paramName, paramValue);
@@ -136,11 +136,11 @@ public class ParametersServiceImpl implements ParametersQueryService,
 	}
 	
 	private Map<String, Object> build(String key){
-		Map<String, Object> param = MapUtil.getMap(5);
+		Map<String, Object> param = MapUtil.getHashMap();
 		param.put("key", key);
 		Map<String, Object> res = sqlMap.queryForObject("param.qryParameterByKey", param);
 		if(null == res){
-			res = MapUtil.getMap();
+			res = MapUtil.getHashMap();
 		}
 		return res;
 	}

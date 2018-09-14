@@ -27,7 +27,7 @@ public class QueryController implements Controller{
 		//2、绑定参数到命令对象
 		//3、将命令对象传入业务对象进行业务处理
 		//4、选择下一个页面
-		Map<String, Object> param = MapUtil.getMap();
+		Map<String, Object> param = MapUtil.getHashMap();
 		param.put("table_name", request.getParameter("tableName"));
 		String col = request.getParameter("col");
 		List<String> column = null;

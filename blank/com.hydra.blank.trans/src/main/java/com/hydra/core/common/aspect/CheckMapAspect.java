@@ -102,8 +102,8 @@ public class CheckMapAspect {
 		Set<String> mainKeySet = new HashSet<>();
 		Set<String> optionalKeySet = new HashSet<>();
 		
-		Map<String, Object> map = MapUtil.getMap();
-		Map<String, Object> tmp = MapUtil.getMap();
+		Map<String, Object> map = MapUtil.getHashMap();
+		Map<String, Object> tmp = MapUtil.getHashMap();
 		String[] params = val.split(Dict.BROKEN_BAR);
 		for(String param : params){
 			String[] info = param.split(Dict.SEMICOLON);
@@ -143,7 +143,7 @@ public class CheckMapAspect {
 		} catch (IOException e) {
 			throw new ExceptionInInitializerError("File mapInfo.properties can't be found in the classpath.");
 		}
-		Map<String, Map<String, Object>> map = MapUtil.getMap();
+		Map<String, Map<String, Object>> map = MapUtil.getHashMap();
 		Set<String> keySet = MAP_INFO.stringPropertyNames();
 		Iterator<String> it = keySet.iterator();
 		while(it.hasNext()){

@@ -31,7 +31,7 @@ public class StringUtil {
 	 * @return String 随机字符串
 	 */
 	public static String createRandom(int length) {
-		Random random = RandomUtil.getRandom();
+		Random random = RandomUtil.get();
 		StringBuilder result = new StringBuilder();
 		int len = Dict.HEXADECIMAL_CHAR_UPPER.length - 1;
 		for (int i = 0; i < length; i++) {

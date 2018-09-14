@@ -56,12 +56,12 @@ public class ModelViewTemplateAspect {
 		}
 		
 		Object ret = null;
-		Map<String, Object> map = MapUtil.getMap();
-		Map<String, Object> retStatus = MapUtil.getMap();
+		Map<String, Object> map = MapUtil.getHashMap();
+		Map<String, Object> retStatus = MapUtil.getHashMap();
 		retStatus.put("retCode", "0000");
 		retStatus.put("errMsg", "SUCCESS");
 		map.put("retStatus", retStatus);
-		Map<String, Object> data = MapUtil.getMap();
+		Map<String, Object> data = MapUtil.getHashMap();
 		data.put("_Guid", guid);
 		map.put("retData", data);
 		try {

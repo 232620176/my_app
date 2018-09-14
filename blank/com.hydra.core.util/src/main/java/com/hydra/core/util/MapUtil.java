@@ -10,11 +10,11 @@ public class MapUtil {
 		return CommonUtil.transform(map.get(key));
 	}
 	
-	public static <K, V> Map<K, V> getMap(){
-		return new HashMap<>(16);
+	public static <K, V> Map<K, V> getHashMap(){
+		return getHashMap(16);
 	}
 	
-	public static <K, V> Map<K, V> getMap(int init){
+	public static <K, V> Map<K, V> getHashMap(int init){
 		return new HashMap<>(init);
 	}
 }
