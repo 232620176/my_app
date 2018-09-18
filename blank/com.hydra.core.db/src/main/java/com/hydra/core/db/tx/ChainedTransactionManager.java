@@ -1,9 +1,8 @@
 package com.hydra.core.db.tx;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionException;
@@ -11,106 +10,101 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
-public class ChainedTransactionManager implements PlatformTransactionManager{
+import lombok.extern.slf4j.Slf4j;
 
-	protected Logger logger = LoggerFactory.getLogger(getClass());
+@Slf4j
+public class ChainedTransactionManager implements PlatformTransactionManager {
+    private List<PlatformTransactionManager> transactionManagers = new ArrayList<PlatformTransactionManager>();
 
-	private List<PlatformTransactionManager> transactionManagers = new ArrayList<PlatformTransactionManager>();
+    public void setTransactionManagers(List<PlatformTransactionManager> transactionManagers) {
+        this.transactionManagers = transactionManagers;
+    }
 
+    @Override
+    public TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException {
+        MultiTransactionStatus mts = new MultiTransactionStatus(
+                transactionManagers.get(0)/* First TM is main TM */);
 
-	public void setTransactionManagers(List<PlatformTransactionManager> transactionManagers) {
-	this.transactionManagers = transactionManagers;
-	}
+        if (!TransactionSynchronizationManager.isSynchronizationActive()) {
+            TransactionSynchronizationManager.initSynchronization();
+            mts.setNewSynchonization();
+        }
 
+        for (PlatformTransactionManager transactionManager : transactionManagers) {
+            mts.getTransactionStatuses().put(transactionManager, transactionManager.getTransaction(definition));
+        }
 
+        return mts;
+    }
 
-	
-	@Override
-	public TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException {
+    @Override
+    public void commit(TransactionStatus status) throws TransactionException {
+        boolean commit = true;
+        Exception commitException = null;
+        PlatformTransactionManager commitExceptionTransactionManager = null;
 
-		MultiTransactionStatus mts = new MultiTransactionStatus(transactionManagers.get(0)/*First TM is main TM*/);
+        for (int i = transactionManagers.size() - 1; i >= 0; i--) {
+            PlatformTransactionManager transactionManager = transactionManagers.get(i);
 
-		if (!TransactionSynchronizationManager.isSynchronizationActive()) {
-			TransactionSynchronizationManager.initSynchronization();
-			mts.setNewSynchonization();
-		}
+            if (commit) {
+                try {
+                    transactionManager
+                            .commit(((MultiTransactionStatus) status).getTransactionStatuses().get(transactionManager));
+                } catch (Exception ex) {
+                    commit = false;
+                    commitException = ex;
+                    commitExceptionTransactionManager = transactionManager;
+                }
+            } else {
+                //after unsucessfull commitu we must try to rollback rest of datasouces
+                try {
+                    transactionManager.rollback(
+                            ((MultiTransactionStatus) status).getTransactionStatuses().get(transactionManager));
+                } catch (Exception ex) {
+                    log.warn("Rollback exception (after commit) (" + transactionManager + ") " + ex.getMessage(), ex);
+                }
+            }
+        }
 
-		for (PlatformTransactionManager transactionManager : transactionManagers) {
-			mts.getTransactionStatuses().put(transactionManager, transactionManager.getTransaction(definition));
-	}
+        if (((MultiTransactionStatus) status).isNewSynchonization()) {
+            TransactionSynchronizationManager.clear();
+        }
 
-		return mts;
-	}
+        if (commitException != null) {
+            throw new TransactionSystemException(
+                    "Commit exception (" + commitExceptionTransactionManager + ") " + commitException.getMessage(),
+                    commitException);
+        }
 
-	
-	@Override
-	public void commit(TransactionStatus status) throws TransactionException {
+    }
 
-		boolean commit = true;
-		Exception commitException = null;
-		PlatformTransactionManager commitExceptionTransactionManager = null;
+    @Override
+    public void rollback(TransactionStatus status) throws TransactionException {
+        Exception rollbackException = null;
+        PlatformTransactionManager rollbackExceptionTransactionManager = null;
 
-		for (int i = transactionManagers.size()-1; i >= 0 ; i--) {
-			PlatformTransactionManager transactionManager = transactionManagers.get(i);
+        for (int i = transactionManagers.size() - 1; i >= 0; i--) {
+            PlatformTransactionManager transactionManager = transactionManagers.get(i);
+            try {
+                transactionManager
+                        .rollback(((MultiTransactionStatus) status).getTransactionStatuses().get(transactionManager));
+            } catch (Exception ex) {
+                if (rollbackException == null) {
+                    rollbackException = ex;
+                    rollbackExceptionTransactionManager = transactionManager;
+                } else {
+                    log.warn("Rollback exception (" + transactionManager + ") " + ex.getMessage(), ex);
+                }
+            }
+        }
 
-			if (commit) {
-				try {
-					transactionManager.commit(((MultiTransactionStatus) status).getTransactionStatuses().get(transactionManager));
-				} catch (Exception ex) {
-					commit = false;
-					commitException = ex;
-					commitExceptionTransactionManager = transactionManager;
-				}
-			} else {
-				//after unsucessfull commitu we must try to rollback rest of datasouces
-				try {
-					transactionManager.rollback(((MultiTransactionStatus) status).getTransactionStatuses().get(transactionManager));
-				} catch (Exception ex) {
-					logger.warn("Rollback exception (after commit) (" + transactionManager + ") " + ex.getMessage(), ex);
-				}
-			}
-		}
+        if (((MultiTransactionStatus) status).isNewSynchonization()) {
+            TransactionSynchronizationManager.clear();
+        }
 
-		if (((MultiTransactionStatus)status).isNewSynchonization()){
-			TransactionSynchronizationManager.clear();
-		}
-
-		if (commitException != null) {
-		   throw new TransactionSystemException("Commit exception ("+commitExceptionTransactionManager+") "+
-			  commitException.getMessage(), commitException);
-		}
-
-	}
-
-	
-	@Override
-	public void rollback(TransactionStatus status) throws TransactionException {
-
-		Exception rollbackException = null;
-		PlatformTransactionManager rollbackExceptionTransactionManager = null;
-
-
-		for (int i = transactionManagers.size()-1; i >= 0 ; i--) {
-			 PlatformTransactionManager transactionManager = transactionManagers.get(i);
-			try {
-				transactionManager.rollback(((MultiTransactionStatus) status).getTransactionStatuses().get(transactionManager));
-			} catch (Exception ex) {
-				if (rollbackException == null) {
-					rollbackException = ex;
-					rollbackExceptionTransactionManager = transactionManager;
-				} else {
-					logger.warn("Rollback exception (" + transactionManager + ") " + ex.getMessage(), ex);
-				}
-			}
-		}
-
-		if (((MultiTransactionStatus)status).isNewSynchonization()){
-			TransactionSynchronizationManager.clear();
-		}
-
-		if (rollbackException != null) {
-			throw new TransactionSystemException("Rollback exception ("+rollbackExceptionTransactionManager+") " + 
-			rollbackException.getMessage(), rollbackException);
-		}
-	}
+        if (rollbackException != null) {
+            throw new TransactionSystemException("Rollback exception (" + rollbackExceptionTransactionManager + ") "
+                    + rollbackException.getMessage(), rollbackException);
+        }
+    }
 }
