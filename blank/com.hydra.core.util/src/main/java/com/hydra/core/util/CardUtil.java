@@ -5,15 +5,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class CardUtil {
-    public static final Random RAN          = new Random();
-    public static final int    FILL         = 9;
-    public static final int    DEFAULT_SIZE = 5;
+public final class CardUtil {
+    public static final int FILL         = 9;
+    public static final int DEFAULT_SIZE = 5;
 
     public static List<String> getCards(String bankName, String cardType, int times) {
         List<String> res = null;
@@ -22,7 +20,7 @@ public class CardUtil {
             List<String> cards = bank.get(cardType);
             int size = 0;
             if (null != cards && (size = cards.size()) > 0) {
-                String cardNo = cards.get(Integer.valueOf(RAN.nextInt(size)));
+                String cardNo = cards.get(Integer.valueOf(RandomUtil.get().nextInt(size)));
                 res = getSome(cardNo, times);
             }
         }
@@ -73,7 +71,7 @@ public class CardUtil {
         }
         String sMax = sb.toString();
         int max = Integer.valueOf(sMax);
-        int ran = RAN.nextInt(max);
+        int ran = RandomUtil.get().nextInt(max);
         return String.format("%0" + len + "d", ran);
     }
 

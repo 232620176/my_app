@@ -10,7 +10,7 @@ import com.hydra.core.common.Dict;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class StringUtil {
+public final class StringUtil {
     /**
      * <p>
      * Title: check

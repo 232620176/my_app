@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class CommonUtil {
+public final class CommonUtil {
     /**
      * <p>
      * Title: transform

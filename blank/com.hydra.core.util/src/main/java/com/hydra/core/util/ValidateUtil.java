@@ -12,9 +12,7 @@ import javax.validation.groups.Default;
 
 import com.hydra.core.util.pojo.ValidationResult;
 
-public class ValidateUtil {
-    private static final Validator VALIDATOR = Validation.buildDefaultValidatorFactory().getValidator();
-
+public final class ValidateUtil {
     public static <T> ValidationResult validate(T object) {
         ValidationResult res = new ValidationResult();
         Set<ConstraintViolation<T>> set = VALIDATOR.validate(object, Default.class);
@@ -44,6 +42,8 @@ public class ValidateUtil {
         }
         return res;
     }
+
+    private static final Validator VALIDATOR = Validation.buildDefaultValidatorFactory().getValidator();
 
     private ValidateUtil() {
         throw new UnsupportedOperationException();

@@ -6,7 +6,7 @@ import java.util.Properties;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ConfigUtil {
+public final class ConfigUtil {
     public static String get(String key) {
         return PRO.getProperty(key);
     }

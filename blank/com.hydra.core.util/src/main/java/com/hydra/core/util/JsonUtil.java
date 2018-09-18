@@ -22,7 +22,7 @@ import com.hydra.core.util.json.Conversion;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class JsonUtil {
+public final class JsonUtil {
     private static final ObjectMapper mapper = new ObjectMapper();
 
     static {

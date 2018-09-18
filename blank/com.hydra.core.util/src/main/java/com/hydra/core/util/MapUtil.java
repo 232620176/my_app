@@ -3,7 +3,7 @@ package com.hydra.core.util;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapUtil {
+public final class MapUtil {
     private MapUtil() {
         throw new UnsupportedOperationException();
     }
