@@ -1,12 +1,10 @@
 package com.hydra.core.util;
 
+import java.util.Arrays;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public final class StringUtil {
     /**
      * <p>
@@ -103,8 +101,47 @@ public final class StringUtil {
         return !isEmpty(str);
     }
 
-    public static void main(String[] args) {
-        log.info("millisecond_in_one_day".toUpperCase());
+    /**
+     * 格式化打印
+     * 
+     * @param object
+     * @return
+     */
+    public static String toString(Object object) {
+        if (null == object) {
+            return null;
+        } else if (object.getClass().isArray()) {
+            if (object instanceof boolean[]) {
+                boolean[] tmp = (boolean[]) object;
+                return Arrays.toString(tmp);
+            } else if (object instanceof byte[]) {
+                byte[] tmp = (byte[]) object;
+                return Arrays.toString(tmp);
+            } else if (object instanceof char[]) {
+                char[] tmp = (char[]) object;
+                return Arrays.toString(tmp);
+            } else if (object instanceof double[]) {
+                double[] tmp = (double[]) object;
+                return Arrays.toString(tmp);
+            } else if (object instanceof float[]) {
+                float[] tmp = (float[]) object;
+                return Arrays.toString(tmp);
+            } else if (object instanceof long[]) {
+                long[] tmp = (long[]) object;
+                return Arrays.toString(tmp);
+            } else if (object instanceof int[]) {
+                int[] tmp = (int[]) object;
+                return Arrays.toString(tmp);
+            } else if (object instanceof short[]) {
+                short[] tmp = (short[]) object;
+                return Arrays.toString(tmp);
+            } else {
+                Object[] tmp = (Object[]) object;
+                return Arrays.toString(tmp);
+            }
+        } else {
+            return object.toString();
+        }
     }
 
     // 静态工具类，防误生成

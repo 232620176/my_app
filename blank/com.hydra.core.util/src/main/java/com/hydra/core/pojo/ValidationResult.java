@@ -1,4 +1,4 @@
-package com.hydra.core.util.pojo;
+package com.hydra.core.pojo;
 
 import java.util.Map;
 

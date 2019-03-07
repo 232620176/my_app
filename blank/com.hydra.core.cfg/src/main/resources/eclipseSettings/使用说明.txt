@@ -1,0 +1,7 @@
+Java->Code style->Code templates: Import codetemplates.xml
+
+Java->Code Style->Formatter: Import formatter.xml
+
+Java->Editor->Save Action: 依次选中Perform the selected actions on save
+                                    Format source code
+                                        Format all lines

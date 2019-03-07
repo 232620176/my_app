@@ -10,7 +10,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.groups.Default;
 
-import com.hydra.core.util.pojo.ValidationResult;
+import com.hydra.core.pojo.ValidationResult;
 
 public final class ValidateUtil {
     public static <T> ValidationResult validate(T object) {
