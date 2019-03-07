@@ -9,7 +9,7 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public final class CardUtil {
+public final class BankCardUtil {
     public static final int FILL         = 9;
     public static final int DEFAULT_SIZE = 5;
 
@@ -281,7 +281,7 @@ public final class CardUtil {
     }
 
     // 静态工具类，防误生成
-    private CardUtil() {
+    private BankCardUtil() {
         throw new UnsupportedOperationException();
     }
 }

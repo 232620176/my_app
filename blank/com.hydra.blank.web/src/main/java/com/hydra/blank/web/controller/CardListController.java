@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 import com.hydra.blank.web.annotation.ServletLog;
-import com.hydra.core.util.CardUtil;
+import com.hydra.core.util.BankCardUtil;
 import com.hydra.core.util.StringUtil;
 
 public class CardListController implements Controller{
@@ -25,7 +25,7 @@ public class CardListController implements Controller{
 		if(!StringUtil.isEmpty(sTimes)){
 			times = Integer.valueOf(sTimes);
 		}
-		Collection<String> cardList = CardUtil.getCards(bankName, cardType, times);
+		Collection<String> cardList = BankCardUtil.getCards(bankName, cardType, times);
 		ModelAndView mv = new ModelAndView();
 		//添加模型数据 可以是任意的POJO对象
 		mv.addObject("list", cardList);
