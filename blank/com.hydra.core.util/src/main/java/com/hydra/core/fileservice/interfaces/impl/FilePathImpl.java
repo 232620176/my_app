@@ -22,14 +22,14 @@ public class FilePathImpl extends AbstractFilePath {
     @Override
     public String getRemoteFileDir(Date date) {
         Date dt = processDate(date);
-        return sftpConfig.getDownloadRootDir() + SEPARATOR + DateUtil.formatDate(dt, DateUtil.PATTERN_YYYYMMDD)
+        return sftpConfig.getDownloadRootDir() + SEPARATOR + DateUtil.formatDate(dt, DateUtil.DATE_PATTERN_2)
                 + SEPARATOR;
     }
 
     @Override
     public String getRemoteFileName(Date date) {
         Date dt = processDate(date);
-        return "SxxOfflineRepay" + DateUtil.formatDate(dt, DateUtil.PATTERN_YYYYMMDD) + ".txt";
+        return "SxxOfflineRepay" + DateUtil.formatDate(dt, DateUtil.DATE_PATTERN_2) + ".txt";
     }
 
     @Override

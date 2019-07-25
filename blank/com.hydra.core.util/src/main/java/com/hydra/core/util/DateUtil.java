@@ -1,13 +1,16 @@
 package com.hydra.core.util;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.util.StringUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public final class DateUtil {
     /**
      * 返回传入日期date加day天后的日期
@@ -40,7 +43,7 @@ public final class DateUtil {
      */
     public static String formatDate(Date date, String pattern) {
         if (!StringUtils.hasText(pattern)) {
-            pattern = ZH_CN_PATTERN_DATETIME;
+            pattern = DATE_PATTERN_0;
         }
         DateFormat formatter = createFormatter(pattern);
         return formatter.format(date);
@@ -64,35 +67,64 @@ public final class DateUtil {
     }
 
     /**
-     * 格式化日期为指定格式字符串
+     * 用匹配的样式格式化日期字符串为指定日期
      * 
-     * @param date
-     * @param format
+     * @param dateStr
+     * @param patterns
      * @return
      */
-    public static Date parseDate(String date, String format) {
-        DateFormat sf = createFormatter(format);
+    public static Date parseDate(String dateStr, String... patterns) {
         try {
-            return sf.parse(date);
-        } catch (ParseException e) {
+            return DateUtils.parseDate(dateStr, patterns);
+        } catch (Exception e) {
+            log.warn("parse date exception, dateStr:{}, patterns:{}", dateStr, patterns);
             throw new RuntimeException(e);
         }
     }
 
-    private static Date        today                   = null;
+    /**
+     * 用DATE_PATTERNS中的样式格式化字符串为指定的日期
+     * 
+     * @param dateStr
+     * @return
+     */
+    public static Date parseDate(String dateStr) {
+        return parseDate(dateStr, DATE_PATTERNS);
+    }
 
-    private static final long  MILLISECOND_IN_ONE_DAY  = 1000 * 60 * 60 * 24;
+    /**
+     * 用DATETIME_PATTERNS中的样式格式化字符串为指定的时间
+     * 
+     * @param datetimeStr
+     * @return
+     */
+    public static Date parseDatetime(String datetimeStr) {
+        return parseDate(datetimeStr, DATETIME_PATTERNS);
+    }
 
-    public static final String PATTERN_YYYYMMDD        = "yyyyMMdd";
+    private static String[] datetimePatterns() {
+        String[] datePatterns = new String[DATE_PATTERNS.length];
+        for (int i = 0; i < datePatterns.length; i++) {
+            datePatterns[i] = DATE_PATTERNS[i] + DATETIME_POSTFIX;
+        }
+        return datePatterns;
+    }
 
-    public static final String PATTERN_YYYYMMDD_HHMMSS = "yyyyMMdd HH:mm:ss";
+    public static final long     MILLISECOND_IN_ONE_DAY = 1000 * 60 * 60 * 24;
+    public static final String   DATE_PATTERN_0         = "yyyy-MM-dd";
+    public static final String   DATE_PATTERN_1         = "yyyy/MM/dd";
+    public static final String   DATE_PATTERN_2         = "yyyyMMdd";
+    public static final String   DATE_PATTERN_3         = "yyyy-M-d";
+    public static final String   DATE_PATTERN_4         = "yyyy/M/d";
+    private static final String  DATETIME_POSTFIX       = " HH:mm:ss";
+    private static Date          today                  = null;
 
-    public static final String ZH_CN_PATTERN_DATE      = "yyyy-MM-dd";
-
-    public static final String ZH_CN_PATTERN_DATETIME  = "yyyy-MM-dd HH:mm:ss";
+    public static final String[] DATE_PATTERNS          = { DATE_PATTERN_0, DATE_PATTERN_1, DATE_PATTERN_2,
+            DATE_PATTERN_3, DATE_PATTERN_4 };
+    public static final String[] DATETIME_PATTERNS      = datetimePatterns();
 
     // 静态工具类，防误生成
     private DateUtil() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("DateUtil::new");
     }
 }
